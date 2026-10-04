@@ -63,6 +63,23 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
             }
         }
 
+        [Test]
+        public void TrackingTightensTheAdvance()
+        {
+            var assembly = typeof(BundledFonts).Assembly;
+            string resource = assembly.GetManifestResourceNames().First(n => n.EndsWith($".{BundledFonts.JETBRAINS_MONO}-Regular.ttf", StringComparison.OrdinalIgnoreCase));
+
+            float advance(float tracking)
+            {
+                using var stream = assembly.GetManifestResourceStream(resource)!;
+                var fontFamily = new FontCollection().Add(stream, CultureInfo.InvariantCulture);
+                return new RuntimeFontGlyphStore(fontFamily, "JetBrainsMono-Regular", scale: 0.5f, tracking: tracking).Get('a').XAdvance;
+            }
+
+            // Render-em is 100 px, so at half scale the face's em is 50 px and -0.1 em takes 5 px off.
+            Assert.That(advance(-0.1f), Is.EqualTo(advance(0) - 5).Within(0.001f));
+        }
+
         [TestCase(BundledFonts.JETBRAINS_MONO)]
         public void EachWeightIsHeavierThanTheLast(string family)
         {

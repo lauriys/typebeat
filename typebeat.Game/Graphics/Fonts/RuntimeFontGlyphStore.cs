@@ -60,6 +60,9 @@ namespace typebeat.Game.Graphics.Fonts
         private readonly float size;
         private readonly float verticalOffset;
 
+        // Extra advance after every glyph, in render-em px (see the tracking parameter of the constructor).
+        private readonly float trackingOffset;
+
         private Font font;
 
         // SixLabors font instances hold internal layout caches that are not documented as
@@ -74,12 +77,14 @@ namespace typebeat.Game.Graphics.Fonts
         /// <param name="style">The family's style to draw, for a family whose only face is not Regular (a bundled bold weight).</param>
         /// <param name="scale">How large to draw the face relative to its own em, for a face that runs larger than the
         /// one it replaces at the same font size. Scaled glyphs stay vertically centred in the line.</param>
-        public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular, float scale = 1)
+        /// <param name="tracking">Letter spacing added after every glyph, in ems of the drawn face: negative tightens.</param>
+        public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular, float scale = 1, float tracking = 0)
         {
             this.family = family;
             this.style = style;
             size = render_em * scale;
             verticalOffset = (render_em - size) / 2;
+            trackingOffset = tracking * size;
             FontName = fontName;
         }
 
@@ -124,7 +129,7 @@ namespace typebeat.Game.Graphics.Fonts
                 return null;
 
             var m = getMetrics(character);
-            return new CharacterGlyph(character, m.XOffset, m.YOffset + verticalOffset, m.XAdvance, Baseline ?? 0, this);
+            return new CharacterGlyph(character, m.XOffset, m.YOffset + verticalOffset, m.XAdvance + trackingOffset, Baseline ?? 0, this);
         }
 
         public int GetKerning(char left, char right)

@@ -33,7 +33,7 @@ namespace typebeat.Game.Graphics.Fonts
         /// </summary>
         public static void AddAll(FontStore fonts)
         {
-            add(fonts, JETBRAINS_MONO, JETBRAINS_MONO_SCALE);
+            add(fonts, JETBRAINS_MONO, JETBRAINS_MONO_SCALE, JETBRAINS_MONO_TRACKING);
         }
 
         /// <summary>
@@ -43,8 +43,14 @@ namespace typebeat.Game.Graphics.Fonts
         /// </summary>
         public const float JETBRAINS_MONO_SCALE = 0.72f;
 
+        /// <summary>
+        /// JetBrains Mono's letter spacing, in ems. A coding face spaces its letters wide for legibility
+        /// in code; set as headings beside Torus that read loose, so its letters draw closer together.
+        /// </summary>
+        public const float JETBRAINS_MONO_TRACKING = -0.1f;
+
         // A missing or unreadable file is logged and skipped: text in that weight falls back to the next face.
-        private static void add(FontStore fonts, string family, float scale = 1)
+        private static void add(FontStore fonts, string family, float scale = 1, float tracking = 0)
         {
             var assembly = typeof(BundledFonts).Assembly;
             string[] resources = assembly.GetManifestResourceNames();
@@ -70,7 +76,7 @@ namespace typebeat.Game.Graphics.Fonts
                     using (var stream = assembly.GetManifestResourceStream(resource)!)
                     {
                         FontFamily fontFamily = collection.Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
-                        fonts.AddTextureSource(new RuntimeFontGlyphStore(fontFamily, fontName, description.Style, scale));
+                        fonts.AddTextureSource(new RuntimeFontGlyphStore(fontFamily, fontName, description.Style, scale, tracking));
                     }
                 }
                 catch (Exception e)
