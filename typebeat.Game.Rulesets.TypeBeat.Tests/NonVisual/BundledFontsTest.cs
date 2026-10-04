@@ -44,22 +44,45 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
             Assert.That(OsuFont.GetWeightString("Torus", FontWeight.Medium), Is.EqualTo("Regular"));
         }
 
-        [TestCase(BundledFonts.JETBRAINS_MONO, "JetBrains Mono")]
-        public void EveryWeightShipsAndLoads(string family, string familyName)
+        [Test]
+        public void EveryWeightShipsAndLoads()
         {
-            var assembly = typeof(BundledFonts).Assembly;
+            foreach (string weight in BundledFonts.WEIGHTS)
+            {
+                string file = BundledFonts.JETBRAINS_MONO_FACES[weight];
+                string? resource = BundledFonts.FindResource(BundledFonts.JETBRAINS_MONO, file);
+
+                Assert.That(resource, Is.Not.Null, $"JetBrainsMono-{file}.ttf is not embedded");
+
+                using var stream = typeof(BundledFonts).Assembly.GetManifestResourceStream(resource!)!;
+                new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
+
+                Assert.That(description.FontFamilyInvariantCulture, Does.StartWith("JetBrains Mono"), file);
+            }
+        }
+
+        [Test]
+        public void EachWeightDrawsOneStepHeavier()
+        {
+            // Regular draws Medium and so on up: a step heavier than the name, to carry
+            // Torus-Alternate's weight.
+            Assert.That(BundledFonts.JETBRAINS_MONO_FACES["Regular"], Is.EqualTo("Medium"));
+            Assert.That(BundledFonts.JETBRAINS_MONO_FACES["Bold"], Is.EqualTo("ExtraBold"));
+
+            // And every weight must draw its own face: a heavier weight inks a wider stem. The advance
+            // of a monospace face never changes, so this measures the ink of 'l' instead.
+            float previous = 0;
 
             foreach (string weight in BundledFonts.WEIGHTS)
             {
-                string fontName = $"{family}-{weight}";
-                string? resource = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith($".{fontName}.ttf", StringComparison.OrdinalIgnoreCase));
+                string resource = BundledFonts.FindResource(BundledFonts.JETBRAINS_MONO, BundledFonts.JETBRAINS_MONO_FACES[weight])!;
 
-                Assert.That(resource, Is.Not.Null, $"{fontName}.ttf is not embedded");
+                using var stream = typeof(BundledFonts).Assembly.GetManifestResourceStream(resource)!;
+                var fontFamily = new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
+                float stem = TextMeasurer.MeasureBounds("l", new TextOptions(fontFamily.CreateFont(100, description.Style))).Width;
 
-                using var stream = assembly.GetManifestResourceStream(resource!)!;
-                new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
-
-                Assert.That(description.FontFamilyInvariantCulture, Does.StartWith(familyName), fontName);
+                Assert.That(stem, Is.GreaterThan(previous), weight);
+                previous = stem;
             }
         }
 
@@ -78,28 +101,6 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 
             // Render-em is 100 px, so at half scale the face's em is 50 px and -0.1 em takes 5 px off.
             Assert.That(advance(-0.1f), Is.EqualTo(advance(0) - 5).Within(0.001f));
-        }
-
-        [TestCase(BundledFonts.JETBRAINS_MONO)]
-        public void EachWeightIsHeavierThanTheLast(string family)
-        {
-            // Every weight must draw its own face: a heavier weight inks a wider stem. The advance
-            // of a monospace face never changes, so this measures the ink of 'l' instead.
-            var assembly = typeof(BundledFonts).Assembly;
-            float previous = 0;
-
-            foreach (string weight in BundledFonts.WEIGHTS)
-            {
-                string resource = assembly.GetManifestResourceNames().First(n => n.EndsWith($".{family}-{weight}.ttf", StringComparison.OrdinalIgnoreCase));
-
-                using var stream = assembly.GetManifestResourceStream(resource)!;
-                var fontFamily = new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
-                var font = fontFamily.CreateFont(100, description.Style);
-                float stem = TextMeasurer.MeasureBounds("l", new TextOptions(font)).Width;
-
-                Assert.That(stem, Is.GreaterThan(previous), $"{family}-{weight}");
-                previous = stem;
-            }
         }
     }
 }

@@ -2,6 +2,7 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using osu.Framework.IO.Stores;
@@ -24,16 +25,29 @@ namespace typebeat.Game.Graphics.Fonts
         public const string JETBRAINS_MONO = "JetBrainsMono";
 
         /// <summary>
-        /// The weights OsuFont asks for. Each is a separate static file and face named "{family}-{weight}".
+        /// The weights OsuFont asks for. Each registers as a separate face named "{family}-{weight}".
         /// </summary>
         public static readonly string[] WEIGHTS = { "Light", "Regular", "Medium", "SemiBold", "Bold" };
+
+        /// <summary>
+        /// Which of JetBrains Mono's files draws each weight OsuFont asks for: each one step heavier than
+        /// its name, so the headings carry Torus-Alternate's weight beside Torus.
+        /// </summary>
+        public static readonly IReadOnlyDictionary<string, string> JETBRAINS_MONO_FACES = new Dictionary<string, string>
+        {
+            ["Light"] = "Regular",
+            ["Regular"] = "Medium",
+            ["Medium"] = "SemiBold",
+            ["SemiBold"] = "Bold",
+            ["Bold"] = "ExtraBold",
+        };
 
         /// <summary>
         /// Registers every bundled weight of every bundled family with <paramref name="fonts"/>.
         /// </summary>
         public static void AddAll(FontStore fonts)
         {
-            add(fonts, JETBRAINS_MONO, JETBRAINS_MONO_SCALE, JETBRAINS_MONO_TRACKING);
+            add(fonts, JETBRAINS_MONO, JETBRAINS_MONO_FACES, JETBRAINS_MONO_SCALE, JETBRAINS_MONO_TRACKING);
         }
 
         /// <summary>
@@ -45,15 +59,23 @@ namespace typebeat.Game.Graphics.Fonts
 
         /// <summary>
         /// JetBrains Mono's letter spacing, in ems. A coding face spaces its letters wide for legibility
-        /// in code; set as headings beside Torus that read loose, so its letters draw closer together.
+        /// in code; set as headings beside Torus that read a touch loose, so its letters draw a little closer.
         /// </summary>
-        public const float JETBRAINS_MONO_TRACKING = -0.1f;
+        public const float JETBRAINS_MONO_TRACKING = -0.025f;
+
+        /// <summary>
+        /// The embedded resource holding <paramref name="family"/>'s file for <paramref name="fileWeight"/>, if bundled.
+        /// </summary>
+        public static string? FindResource(string family, string fileWeight)
+        {
+            string file = $".{family}-{fileWeight}.ttf";
+            return typeof(BundledFonts).Assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith(file, StringComparison.OrdinalIgnoreCase));
+        }
 
         // A missing or unreadable file is logged and skipped: text in that weight falls back to the next face.
-        private static void add(FontStore fonts, string family, float scale = 1, float tracking = 0)
+        private static void add(FontStore fonts, string family, IReadOnlyDictionary<string, string> faces, float scale = 1, float tracking = 0)
         {
             var assembly = typeof(BundledFonts).Assembly;
-            string[] resources = assembly.GetManifestResourceNames();
 
             foreach (string weight in WEIGHTS)
             {
@@ -61,11 +83,11 @@ namespace typebeat.Game.Graphics.Fonts
 
                 try
                 {
-                    string? resource = resources.FirstOrDefault(n => n.EndsWith($".{fontName}.ttf", StringComparison.OrdinalIgnoreCase));
+                    string? resource = FindResource(family, faces[weight]);
 
                     if (resource == null)
                     {
-                        Logger.Log($"The bundled font {fontName} is missing.", level: LogLevel.Error);
+                        Logger.Log($"The bundled font file {family}-{faces[weight]} for {fontName} is missing.", level: LogLevel.Error);
                         continue;
                     }
 
