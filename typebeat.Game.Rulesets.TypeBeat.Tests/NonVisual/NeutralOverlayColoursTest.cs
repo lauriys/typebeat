@@ -97,16 +97,29 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         {
             var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
 
-            Assert.That(provider.Background5, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.01f, 0.15f * 0.8f)));
-            Assert.That(provider.Dark1, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.02f, 0.35f * 0.8f)));
+            Assert.That(provider.Background5, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.15f * 0.8f)));
+            Assert.That(provider.Dark1, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.02f, 0.35f * 0.8f)));
             // The lightest grey and the text greys keep their lightness.
-            Assert.That(provider.Background1, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.01f, 0.4f)));
-            Assert.That(provider.Content2, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.04f, 0.9f)));
+            Assert.That(provider.Background1, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.4f)));
+            Assert.That(provider.Content2, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.04f, 0.9f)));
+        }
+
+        [Test]
+        public void TheNeutralGreysLeanCoolNotGreen()
+        {
+            var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
+
+            // Blue at or above red and green: a cool slate, never the lime accent's green cast.
+            foreach (var grey in new[] { provider.Background5, provider.Dark1, provider.Background1, provider.Light1, provider.Content2, Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR })
+            {
+                Assert.That(grey.B, Is.GreaterThanOrEqualTo(grey.G), grey.ToString());
+                Assert.That(grey.G, Is.GreaterThanOrEqualTo(grey.R), grey.ToString());
+            }
         }
 
         [Test]
         public void TheToolbarSitsDarkerToo()
-            => Assert.That(Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR, Is.EqualTo((Color4)OsuColour.Gray(0.08f)));
+            => Assert.That(Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.08f)));
 
         [Test]
         public void ChangingSchemeCarriesTheNeutralGreys()

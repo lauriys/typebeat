@@ -103,10 +103,26 @@ namespace typebeat.Game.Overlays
             NeutralGreys = false;
         }
 
-        private Color4 getColour(float saturation, float lightness) => osu.Framework.Graphics.Colour4.FromHSL(Hue / 360f, saturation, lightness);
+        private Color4 getColour(float saturation, float lightness) => getColour(Hue, saturation, lightness);
 
-        // A tenth of the saturation keeps the faintest trace of the hue, so the greys still sit with the accent.
-        private Color4 getGrey(float saturation, float lightness) => getColour(NeutralGreys ? saturation / 10 : saturation, lightness);
+        private static Color4 getColour(int hue, float saturation, float lightness) => osu.Framework.Graphics.Colour4.FromHSL(hue / 360f, saturation, lightness);
+
+        // Neutral greys keep a tenth of the saturation, at NEUTRAL_GREY_HUE rather than the accent's hue.
+        private Color4 getGrey(float saturation, float lightness)
+            => NeutralGreys ? getColour(NEUTRAL_GREY_HUE, saturation / 10, lightness) : getColour(saturation, lightness);
+
+        /// <summary>
+        /// The hue the neutral scheme's greys lean towards: a faint cool slate, like the website's
+        /// #141519 and the serika-dark gameplay palette (#323437). Leaning on the lime accent's own hue
+        /// instead read as a green cast.
+        /// </summary>
+        public const int NEUTRAL_GREY_HUE = 225;
+
+        /// <summary>
+        /// A neutral grey at <paramref name="lightness"/>: <see cref="NEUTRAL_GREY_HUE"/> at the faint
+        /// saturation of the neutral scheme's backgrounds.
+        /// </summary>
+        public static Color4 NeutralGrey(float lightness) => getColour(NEUTRAL_GREY_HUE, 0.01f, lightness);
 
         // The dark surfaces (panels, cards, sidebars) also sit darker on the neutral scheme, nearer the
         // website's near-black. Background1 stays put: it is the lightest step, used for borders and
