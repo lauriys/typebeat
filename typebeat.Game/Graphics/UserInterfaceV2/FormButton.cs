@@ -219,13 +219,19 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
                 DefaultBackgroundColour = overlayColourProvider.Colour3;
                 triangleGradientSecondColour ??= DefaultBackgroundColour.Lighten(0.2f);
 
+                // type!beat: the scheme's colour for text on its accent (dark on the lime accent).
+                // A shadow only suits a white glyph.
+                Color4 foreground = overlayColourProvider.ForegroundOnAccent;
+                SpriteText.Colour = foreground;
+
                 if (Text == default)
                 {
                     Add(new SpriteIcon
                     {
                         Icon = Icon,
                         Size = new Vector2(16),
-                        Shadow = true,
+                        Colour = foreground,
+                        Shadow = foreground == Color4.White,
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
                     });

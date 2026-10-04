@@ -269,7 +269,7 @@ namespace typebeat.Game.Screens.Footer
                 makeButtonDisappearToBottom(button, 0, 0, false);
             }
 
-            updateColourScheme(overlay.ColourProvider.Hue);
+            updateColourScheme(overlay.ColourProvider);
 
             overlayContent = overlay.CreateFooterContent();
             activeOverlayContent = overlayContent;
@@ -315,7 +315,7 @@ namespace typebeat.Game.Screens.Footer
 
             temporarilyHiddenButtons.Clear();
 
-            updateColourScheme(OverlayColourScheme.Aquamarine.GetHue());
+            updateColourScheme(new OverlayColourProvider(OverlayColourScheme.Aquamarine));
 
             Scheduler.AddDelayed(() =>
             {
@@ -328,9 +328,9 @@ namespace typebeat.Game.Screens.Footer
             ActiveOverlay = null;
         }
 
-        private void updateColourScheme(int hue)
+        private void updateColourScheme(OverlayColourProvider scheme)
         {
-            colourProvider.ChangeColourScheme(hue);
+            colourProvider.ChangeColourScheme(scheme);
 
             background.FadeColour(colourProvider.Background5, 150, Easing.OutQuint);
 

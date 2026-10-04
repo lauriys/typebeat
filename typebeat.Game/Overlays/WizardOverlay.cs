@@ -251,6 +251,8 @@ namespace typebeat.Game.Overlays
                     Text = FirstRunSetupOverlayStrings.GetStarted,
                     DarkerColour = colourProvider.Colour3,
                     LighterColour = colourProvider.Colour2,
+                    // type!beat: dark on the lime accent, white elsewhere.
+                    TextColour = colourProvider.ForegroundOnAccent,
                     Action = () => ShowNextStep?.Invoke(),
                 };
             }

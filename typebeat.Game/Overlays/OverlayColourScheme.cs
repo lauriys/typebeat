@@ -47,7 +47,12 @@ namespace typebeat.Game.Overlays
                     return 200;
 
                 case OverlayColourScheme.Purple:
-                    return 255;
+                    // type!beat: "Purple" is osu!'s default overlay scheme (settings, notifications,
+                    // login, first-run setup, player loader, ...). osu! tinted every grey in it violet;
+                    // here its accents take the Caret lime hue and its greys go neutral (see
+                    // HasNeutralGreys), so the brand colour reads as an accent on charcoal, like the
+                    // serika-dark gameplay palette, rather than as a lime-washed panel.
+                    return 75;
 
                 case OverlayColourScheme.Plum:
                     return 320;
@@ -58,5 +63,12 @@ namespace typebeat.Game.Overlays
                     return 75;
             }
         }
+
+        /// <summary>
+        /// Whether the greys of this scheme (backgrounds, foregrounds, content text) carry almost
+        /// none of its hue, leaving the hue to the accents (<see cref="OverlayColourProvider.Colour0"/>
+        /// to <see cref="OverlayColourProvider.Colour4"/> and <see cref="OverlayColourProvider.Highlight1"/>).
+        /// </summary>
+        public static bool HasNeutralGreys(this OverlayColourScheme colourScheme) => colourScheme == OverlayColourScheme.Purple;
     }
 }

@@ -26,14 +26,25 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
 
         private Color4? triangleGradientSecondColour;
 
+        private bool hasLocalBackgroundColour;
+        private bool textFollowsAccent;
+
         public override Color4 BackgroundColour
         {
             get => base.BackgroundColour;
             set
             {
                 base.BackgroundColour = value;
+                hasLocalBackgroundColour = true;
                 triangleGradientSecondColour = BackgroundColour.Lighten(0.2f);
                 updateColours();
+
+                // type!beat: the accent's text colour only suits the accent fill.
+                if (textFollowsAccent)
+                {
+                    SpriteText.Colour = Color4.White;
+                    textFollowsAccent = false;
+                }
             }
         }
 
@@ -43,6 +54,14 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
             // Many buttons have local colours, but this provides a sane default for all other cases.
             DefaultBackgroundColour = overlayColourProvider?.Colour3 ?? colours.Blue3;
             triangleGradientSecondColour ??= DefaultBackgroundColour.Lighten(0.2f);
+
+            // type!beat: on the default accent fill, the text takes the scheme's colour for it
+            // (dark on the lime accent, white elsewhere).
+            if (overlayColourProvider != null && !hasLocalBackgroundColour)
+            {
+                SpriteText.Colour = overlayColourProvider.ForegroundOnAccent;
+                textFollowsAccent = true;
+            }
         }
 
         protected override void LoadComplete()
