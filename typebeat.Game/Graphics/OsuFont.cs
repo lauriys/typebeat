@@ -112,10 +112,8 @@ namespace typebeat.Game.Graphics
                 case Typeface.Venera:
                     return @"Venera";
 
-                // type!beat: the body face is Nunito, rounded like Torus but softer. The typeface keeps
-                // its name so its call sites carry on unchanged.
                 case Typeface.Torus:
-                    return Fonts.BundledFonts.NUNITO;
+                    return @"Torus";
 
                 // type!beat: the stylised heading face is JetBrains Mono, a terminal's monospace for a
                 // typing game. The typeface keeps its name so its call sites carry on unchanged.
@@ -137,7 +135,7 @@ namespace typebeat.Game.Graphics
         /// <returns>The string representation of <paramref name="weight"/> in the specified <paramref name="family"/>.</returns>
         public static string GetWeightString(string family, FontWeight weight)
         {
-            if ((family == @"Torus" || family == @"Torus-Alternate") && weight == FontWeight.Medium)
+            if ((family == GetFamilyString(Typeface.Torus) || family == @"Torus-Alternate") && weight == FontWeight.Medium)
                 // torus doesn't have a medium; fallback to regular.
                 weight = FontWeight.Regular;
 
@@ -169,8 +167,6 @@ namespace typebeat.Game.Graphics
     public enum Typeface
     {
         Venera,
-
-        [Description("Nunito")]
         Torus,
 
         [Description("JetBrains Mono")]

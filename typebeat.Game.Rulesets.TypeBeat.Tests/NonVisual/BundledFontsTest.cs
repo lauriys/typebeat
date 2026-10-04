@@ -13,9 +13,9 @@ using typebeat.Game.Graphics.Fonts;
 namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 {
     /// <summary>
-    /// The bundled TrueType faces: the body face (<see cref="Typeface.Torus"/>) draws in Nunito and
-    /// the heading face (<see cref="Typeface.TorusAlternate"/>) in JetBrains Mono, and every weight
-    /// OsuFont asks for ships as a resource and loads as its own face and style.
+    /// The bundled TrueType faces: the heading face (<see cref="Typeface.TorusAlternate"/>) draws in
+    /// JetBrains Mono while body text stays in Torus, and every weight OsuFont asks for ships as a
+    /// resource and loads as its own face and style.
     /// </summary>
     [TestFixture]
     public class BundledFontsTest
@@ -29,11 +29,11 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         [Test]
-        public void TheBodyFaceIsNunito()
+        public void TheBodyFaceStaysTorus()
         {
-            Assert.That(OsuFont.GetFamilyString(Typeface.Torus), Is.EqualTo(BundledFonts.NUNITO));
-            Assert.That(OsuFont.Default.FontName, Is.EqualTo("Nunito-Medium"));
-            Assert.That(OsuFont.GetFont(weight: FontWeight.Light).FontName, Is.EqualTo("Nunito-Light"));
+            Assert.That(OsuFont.GetFamilyString(Typeface.Torus), Is.EqualTo("Torus"));
+            // Torus has no medium, so the default weight resolves to regular.
+            Assert.That(OsuFont.Default.FontName, Is.EqualTo("Torus-Regular"));
         }
 
         [Test]
@@ -41,12 +41,10 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         {
             // Torus has no medium and falls back to regular; the bundled faces ship one.
             Assert.That(OsuFont.GetWeightString(BundledFonts.JETBRAINS_MONO, FontWeight.Medium), Is.EqualTo("Medium"));
-            Assert.That(OsuFont.GetWeightString(BundledFonts.NUNITO, FontWeight.Medium), Is.EqualTo("Medium"));
             Assert.That(OsuFont.GetWeightString("Torus", FontWeight.Medium), Is.EqualTo("Regular"));
         }
 
         [TestCase(BundledFonts.JETBRAINS_MONO, "JetBrains Mono")]
-        [TestCase(BundledFonts.NUNITO, "Nunito")]
         public void EveryWeightShipsAndLoads(string family, string familyName)
         {
             var assembly = typeof(BundledFonts).Assembly;
@@ -66,7 +64,6 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         [TestCase(BundledFonts.JETBRAINS_MONO)]
-        [TestCase(BundledFonts.NUNITO)]
         public void EachWeightIsHeavierThanTheLast(string family)
         {
             // Every weight must draw its own face: a heavier weight inks a wider stem. The advance

@@ -24,15 +24,6 @@ namespace typebeat.Game.Graphics.Fonts
         public const string JETBRAINS_MONO = "JetBrainsMono";
 
         /// <summary>
-        /// Nunito: the body face, in place of osu!'s Torus; rounded like it, but softer. Its static
-        /// weights are instances cut from the family's variable font, which the runtime renderer
-        /// cannot vary: Light 300, Regular 400, Medium 500, and SemiBold and Bold at Nunito's own 700
-        /// and 800, one step heavier than their names, since Torus's bold runs much heavier than
-        /// Nunito's and button labels lost their weight.
-        /// </summary>
-        public const string NUNITO = "Nunito";
-
-        /// <summary>
         /// The weights OsuFont asks for. Each is a separate static file and face named "{family}-{weight}".
         /// </summary>
         public static readonly string[] WEIGHTS = { "Light", "Regular", "Medium", "SemiBold", "Bold" };
@@ -42,21 +33,13 @@ namespace typebeat.Game.Graphics.Fonts
         /// </summary>
         public static void AddAll(FontStore fonts)
         {
-            add(fonts, NUNITO, NUNITO_SCALE);
             add(fonts, JETBRAINS_MONO, JETBRAINS_MONO_SCALE);
         }
 
         /// <summary>
-        /// Nunito runs larger than Torus at the same font size (wider letters, a taller x-height), which
-        /// overflowed layouts built around Torus and read as oversized. Drawn at this scale, headers and
-        /// button labels come out the size Torus set them at.
-        /// </summary>
-        public const float NUNITO_SCALE = 0.8f;
-
-        /// <summary>
         /// JetBrains Mono runs larger than Torus-Alternate at the same font size. Drawn at this scale it
-        /// reads at Torus-Alternate's size beside the body face; being monospace, a line still runs a
-        /// little wider.
+        /// reads at Torus-Alternate's size beside the Torus body text; being monospace, a line still runs
+        /// a little wider.
         /// </summary>
         public const float JETBRAINS_MONO_SCALE = 0.72f;
 
