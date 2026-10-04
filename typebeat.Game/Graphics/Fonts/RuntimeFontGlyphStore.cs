@@ -53,6 +53,7 @@ namespace typebeat.Game.Graphics.Fonts
         public float? Baseline { get; private set; }
 
         private readonly FontFamily family;
+        private readonly FontStyle style;
         private Font font;
 
         // SixLabors font instances hold internal layout caches that are not documented as
@@ -62,9 +63,13 @@ namespace typebeat.Game.Graphics.Fonts
 
         private readonly Dictionary<char, glyphMetrics> metricsCache = new Dictionary<char, glyphMetrics>();
 
-        public RuntimeFontGlyphStore(FontFamily family, string fontName)
+        /// <param name="family">The face's family.</param>
+        /// <param name="fontName">The name the font store looks the face up by (family and weight, e.g. "Inconsolata-Bold").</param>
+        /// <param name="style">The family's style to draw, for a family whose only face is not Regular (a bundled bold weight).</param>
+        public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular)
         {
             this.family = family;
+            this.style = style;
             FontName = fontName;
         }
 
@@ -77,7 +82,7 @@ namespace typebeat.Game.Graphics.Fonts
                 if (font != null)
                     return;
 
-                font = family.CreateFont(render_em);
+                font = family.CreateFont(render_em, style);
                 var h = font.FontMetrics.HorizontalMetrics;
                 // Distance from the line's top down to the baseline, in render-em px. Only used for
                 // cross-glyph baseline alignment; every glyph in this store shares it.

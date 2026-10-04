@@ -522,6 +522,9 @@ namespace typebeat.Game
             AddFont(Resources, @"Fonts/Torus-Alternate/Torus-Alternate-SemiBold");
             AddFont(Resources, @"Fonts/Torus-Alternate/Torus-Alternate-Bold");
 
+            // type!beat: the heading face (Typeface.TorusAlternate) draws in Inconsolata, see OsuFont.
+            Graphics.Fonts.BundledFonts.AddInconsolata(Fonts);
+
             AddFont(Resources, @"Fonts/Inter/Inter-Regular");
             AddFont(Resources, @"Fonts/Inter/Inter-RegularItalic");
             AddFont(Resources, @"Fonts/Inter/Inter-Light");
