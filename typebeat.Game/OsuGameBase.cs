@@ -522,7 +522,7 @@ namespace typebeat.Game
             AddFont(Resources, @"Fonts/Torus-Alternate/Torus-Alternate-SemiBold");
             AddFont(Resources, @"Fonts/Torus-Alternate/Torus-Alternate-Bold");
 
-            // type!beat: the bundled TrueType faces (the JetBrains Mono heading face), see OsuFont.
+            // type!beat: the bundled TrueType faces (Nunito for body text, JetBrains Mono for headings), see OsuFont.
             Graphics.Fonts.BundledFonts.AddAll(Fonts);
 
             AddFont(Resources, @"Fonts/Inter/Inter-Regular");

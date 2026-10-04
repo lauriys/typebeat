@@ -54,6 +54,12 @@ namespace typebeat.Game.Graphics.Fonts
 
         private readonly FontFamily family;
         private readonly FontStyle style;
+
+        // The face's em in render-em px, and how far its glyphs drop to stay centred in the line
+        // (see the scale parameter of the constructor).
+        private readonly float size;
+        private readonly float verticalOffset;
+
         private Font font;
 
         // SixLabors font instances hold internal layout caches that are not documented as
@@ -66,10 +72,14 @@ namespace typebeat.Game.Graphics.Fonts
         /// <param name="family">The face's family.</param>
         /// <param name="fontName">The name the font store looks the face up by (family and weight, e.g. "JetBrainsMono-Bold").</param>
         /// <param name="style">The family's style to draw, for a family whose only face is not Regular (a bundled bold weight).</param>
-        public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular)
+        /// <param name="scale">How large to draw the face relative to its own em, for a face that runs larger than the
+        /// one it replaces at the same font size. Scaled glyphs stay vertically centred in the line.</param>
+        public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular, float scale = 1)
         {
             this.family = family;
             this.style = style;
+            size = render_em * scale;
+            verticalOffset = (render_em - size) / 2;
             FontName = fontName;
         }
 
@@ -82,11 +92,11 @@ namespace typebeat.Game.Graphics.Fonts
                 if (font != null)
                     return;
 
-                font = family.CreateFont(render_em, style);
+                font = family.CreateFont(size, style);
                 var h = font.FontMetrics.HorizontalMetrics;
                 // Distance from the line's top down to the baseline, in render-em px. Only used for
                 // cross-glyph baseline alignment; every glyph in this store shares it.
-                Baseline = h.Ascender / (float)font.FontMetrics.UnitsPerEm * render_em;
+                Baseline = h.Ascender / (float)font.FontMetrics.UnitsPerEm * size + verticalOffset;
             }
         }
 
@@ -114,7 +124,7 @@ namespace typebeat.Game.Graphics.Fonts
                 return null;
 
             var m = getMetrics(character);
-            return new CharacterGlyph(character, m.XOffset, m.YOffset, m.XAdvance, Baseline ?? 0, this);
+            return new CharacterGlyph(character, m.XOffset, m.YOffset + verticalOffset, m.XAdvance, Baseline ?? 0, this);
         }
 
         public int GetKerning(char left, char right)
