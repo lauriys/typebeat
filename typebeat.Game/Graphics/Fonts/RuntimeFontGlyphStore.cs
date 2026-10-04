@@ -64,7 +64,7 @@ namespace typebeat.Game.Graphics.Fonts
         private readonly Dictionary<char, glyphMetrics> metricsCache = new Dictionary<char, glyphMetrics>();
 
         /// <param name="family">The face's family.</param>
-        /// <param name="fontName">The name the font store looks the face up by (family and weight, e.g. "Inconsolata-Bold").</param>
+        /// <param name="fontName">The name the font store looks the face up by (family and weight, e.g. "JetBrainsMono-Bold").</param>
         /// <param name="style">The family's style to draw, for a family whose only face is not Regular (a bundled bold weight).</param>
         public RuntimeFontGlyphStore(FontFamily family, string fontName, FontStyle style = FontStyle.Regular)
         {

@@ -13,45 +13,47 @@ using typebeat.Game.Graphics.Fonts;
 namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 {
     /// <summary>
-    /// The heading face (<see cref="Typeface.TorusAlternate"/>) draws in the bundled Inconsolata:
-    /// every weight OsuFont asks for ships as a resource and loads as its own face and style.
+    /// The bundled TrueType faces: the heading face (<see cref="Typeface.TorusAlternate"/>) draws in
+    /// JetBrains Mono, and every weight OsuFont asks for ships as a resource and loads as its own
+    /// face and style.
     /// </summary>
     [TestFixture]
     public class BundledFontsTest
     {
         [Test]
-        public void TheHeadingFaceIsInconsolata()
+        public void TheHeadingFaceIsJetBrainsMono()
         {
-            Assert.That(OsuFont.GetFamilyString(Typeface.TorusAlternate), Is.EqualTo(BundledFonts.INCONSOLATA));
-            Assert.That(OsuFont.TorusAlternate.FontName, Is.EqualTo("Inconsolata-Regular"));
-            Assert.That(OsuFont.GetFont(Typeface.TorusAlternate, weight: FontWeight.Bold).FontName, Is.EqualTo("Inconsolata-Bold"));
+            Assert.That(OsuFont.GetFamilyString(Typeface.TorusAlternate), Is.EqualTo(BundledFonts.JETBRAINS_MONO));
+            Assert.That(OsuFont.TorusAlternate.FontName, Is.EqualTo("JetBrainsMono-Regular"));
+            Assert.That(OsuFont.GetFont(Typeface.TorusAlternate, weight: FontWeight.Bold).FontName, Is.EqualTo("JetBrainsMono-Bold"));
         }
 
         [Test]
-        public void InconsolataKeepsItsMediumWeight()
+        public void TheBundledFacesKeepTheirMediumWeight()
         {
-            // Torus has no medium and falls back to regular; Inconsolata ships one.
-            Assert.That(OsuFont.GetWeightString(BundledFonts.INCONSOLATA, FontWeight.Medium), Is.EqualTo("Medium"));
+            // Torus has no medium and falls back to regular; the bundled faces ship one.
+            Assert.That(OsuFont.GetWeightString(BundledFonts.JETBRAINS_MONO, FontWeight.Medium), Is.EqualTo("Medium"));
             Assert.That(OsuFont.GetWeightString("Torus", FontWeight.Medium), Is.EqualTo("Regular"));
         }
 
-        [TestCase("Light", FontStyle.Regular)]
-        [TestCase("Regular", FontStyle.Regular)]
-        [TestCase("Medium", FontStyle.Regular)]
-        [TestCase("SemiBold", FontStyle.Regular)]
-        [TestCase("Bold", FontStyle.Bold)]
-        public void EveryWeightShipsAndLoads(string weight, FontStyle expectedStyle)
+        [TestCase(BundledFonts.JETBRAINS_MONO, "JetBrains Mono")]
+        public void EveryWeightShipsAndLoads(string family, string familyName)
         {
             var assembly = typeof(BundledFonts).Assembly;
-            string? resource = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith($"Inconsolata-{weight}.ttf", StringComparison.OrdinalIgnoreCase));
 
-            Assert.That(resource, Is.Not.Null, $"Inconsolata-{weight}.ttf is not embedded");
+            foreach (string weight in BundledFonts.WEIGHTS)
+            {
+                string fontName = $"{family}-{weight}";
+                string? resource = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith($".{fontName}.ttf", StringComparison.OrdinalIgnoreCase));
 
-            using var stream = assembly.GetManifestResourceStream(resource!)!;
-            new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
+                Assert.That(resource, Is.Not.Null, $"{fontName}.ttf is not embedded");
 
-            Assert.That(description.FontFamilyInvariantCulture, Does.StartWith("Inconsolata"));
-            Assert.That(description.Style, Is.EqualTo(expectedStyle));
+                using var stream = assembly.GetManifestResourceStream(resource!)!;
+                new FontCollection().Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
+
+                Assert.That(description.FontFamilyInvariantCulture, Does.StartWith(familyName), fontName);
+                Assert.That(description.Style, Is.EqualTo(weight == "Bold" ? FontStyle.Bold : FontStyle.Regular), fontName);
+            }
         }
     }
 }

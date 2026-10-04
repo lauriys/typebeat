@@ -13,35 +13,39 @@ namespace typebeat.Game.Graphics.Fonts
     /// <summary>
     /// type!beat's UI faces shipped as TrueType files in <c>Resources/Fonts</c> rather than in the
     /// packaged BMFont resources, rasterised at runtime through <see cref="RuntimeFontGlyphStore"/>.
+    /// Each family is licensed under the SIL OFL 1.1; its licence sits beside its files.
     /// </summary>
     public static class BundledFonts
     {
         /// <summary>
-        /// Inconsolata (SIL OFL 1.1, see <c>Resources/Fonts/Inconsolata/Inconsolata-OFL.txt</c>): the
-        /// monospace heading face, in place of osu!'s stylised Torus-Alternate. A typing game's titles
-        /// in a terminal's type.
+        /// JetBrains Mono: the monospace heading face, in place of osu!'s stylised Torus-Alternate.
+        /// A typing game's titles in a terminal's type.
         /// </summary>
-        public const string INCONSOLATA = "Inconsolata";
-
-        // The weights OsuFont asks for; each file is a separate face named "{family}-{weight}".
-        private static readonly string[] inconsolata_weights = { "Light", "Regular", "Medium", "SemiBold", "Bold" };
+        public const string JETBRAINS_MONO = "JetBrainsMono";
 
         /// <summary>
-        /// Registers every bundled Inconsolata weight with <paramref name="fonts"/>. A missing or
-        /// unreadable file is logged and skipped: text in that weight falls back to the default face.
+        /// The weights OsuFont asks for. Each is a separate static file and face named "{family}-{weight}".
         /// </summary>
-        public static void AddInconsolata(FontStore fonts)
+        public static readonly string[] WEIGHTS = { "Light", "Regular", "Medium", "SemiBold", "Bold" };
+
+        /// <summary>
+        /// Registers every bundled weight of every bundled family with <paramref name="fonts"/>.
+        /// </summary>
+        public static void AddAll(FontStore fonts) => add(fonts, JETBRAINS_MONO);
+
+        // A missing or unreadable file is logged and skipped: text in that weight falls back to the next face.
+        private static void add(FontStore fonts, string family)
         {
             var assembly = typeof(BundledFonts).Assembly;
             string[] resources = assembly.GetManifestResourceNames();
 
-            foreach (string weight in inconsolata_weights)
+            foreach (string weight in WEIGHTS)
             {
-                string fontName = $"{INCONSOLATA}-{weight}";
+                string fontName = $"{family}-{weight}";
 
                 try
                 {
-                    string? resource = resources.FirstOrDefault(n => n.EndsWith($"{fontName}.ttf", StringComparison.OrdinalIgnoreCase));
+                    string? resource = resources.FirstOrDefault(n => n.EndsWith($".{fontName}.ttf", StringComparison.OrdinalIgnoreCase));
 
                     if (resource == null)
                     {
@@ -55,8 +59,8 @@ namespace typebeat.Game.Graphics.Fonts
 
                     using (var stream = assembly.GetManifestResourceStream(resource)!)
                     {
-                        FontFamily family = collection.Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
-                        fonts.AddTextureSource(new RuntimeFontGlyphStore(family, fontName, description.Style));
+                        FontFamily fontFamily = collection.Add(stream, CultureInfo.InvariantCulture, out FontDescription description);
+                        fonts.AddTextureSource(new RuntimeFontGlyphStore(fontFamily, fontName, description.Style));
                     }
                 }
                 catch (Exception e)

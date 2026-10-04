@@ -115,10 +115,10 @@ namespace typebeat.Game.Graphics
                 case Typeface.Torus:
                     return @"Torus";
 
-                // type!beat: the stylised heading face is Inconsolata, a monospace for a typing game.
-                // The typeface keeps its name so its call sites carry on unchanged.
+                // type!beat: the stylised heading face is JetBrains Mono, a terminal's monospace for a
+                // typing game. The typeface keeps its name so its call sites carry on unchanged.
                 case Typeface.TorusAlternate:
-                    return Fonts.BundledFonts.INCONSOLATA;
+                    return Fonts.BundledFonts.JETBRAINS_MONO;
 
                 case Typeface.Inter:
                     return @"Inter";
