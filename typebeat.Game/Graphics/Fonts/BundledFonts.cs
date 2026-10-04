@@ -47,17 +47,18 @@ namespace typebeat.Game.Graphics.Fonts
         }
 
         /// <summary>
-        /// Nunito runs about 15% larger than Torus at the same font size (wider letters, a taller x-height),
-        /// which overflowed layouts built around Torus. Drawn at this scale, a line of it takes Torus's width.
+        /// Nunito runs larger than Torus at the same font size (wider letters, a taller x-height), which
+        /// overflowed layouts built around Torus and read as oversized. Drawn at this scale, headers and
+        /// button labels come out the size Torus set them at.
         /// </summary>
-        public const float NUNITO_SCALE = 0.87f;
+        public const float NUNITO_SCALE = 0.8f;
 
         /// <summary>
-        /// JetBrains Mono runs about 25% taller than Torus-Alternate at the same font size. Drawn at this
-        /// scale its letters stand as tall as Torus-Alternate's did; being monospace, a line still runs a
+        /// JetBrains Mono runs larger than Torus-Alternate at the same font size. Drawn at this scale it
+        /// reads at Torus-Alternate's size beside the body face; being monospace, a line still runs a
         /// little wider.
         /// </summary>
-        public const float JETBRAINS_MONO_SCALE = 0.8f;
+        public const float JETBRAINS_MONO_SCALE = 0.72f;
 
         // A missing or unreadable file is logged and skipped: text in that weight falls back to the next face.
         private static void add(FontStore fonts, string family, float scale = 1)
