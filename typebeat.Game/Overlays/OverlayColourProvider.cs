@@ -45,7 +45,11 @@ namespace typebeat.Game.Overlays
         public Color4 Light1 => getGrey(0.4f, 0.8f);
         public Color4 Light2 => getGrey(0.4f, 0.75f);
         public Color4 Light3 => getGrey(0.4f, 0.7f);
-        public Color4 Light4 => getGrey(0.4f, 0.5f);
+
+        // type!beat: Light4 is osu!'s muted accent, not a grey (slider fills, toggle outlines, focused
+        // field borders, hover highlights), so it keeps the accent's hue on the neutral scheme too.
+        public Color4 Light4 => getColour(0.4f, 0.5f);
+
         public Color4 Dark1 => getSurface(0.2f, 0.35f);
         public Color4 Dark2 => getSurface(0.2f, 0.3f);
         public Color4 Dark3 => getSurface(0.2f, 0.25f);

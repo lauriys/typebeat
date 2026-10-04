@@ -105,6 +105,16 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         [Test]
+        public void TheMutedAccentKeepsTheLime()
+        {
+            // Slider fills, toggle outlines and focused borders use Light4: on osu!'s schemes a muted
+            // accent, so it must stay lime here rather than going grey with the rest.
+            var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
+
+            Assert.That(provider.Light4, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.4f, 0.5f)));
+        }
+
+        [Test]
         public void TheNeutralGreysLeanCoolNotGreen()
         {
             var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
