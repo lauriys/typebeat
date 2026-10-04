@@ -28,10 +28,11 @@ namespace typebeat.Game.Overlays.Toolbar
         public const float TOOLTIP_HEIGHT = 30;
 
         /// <summary>
-        /// The toolbar's surface. type!beat: an 8% neutral grey, a fifth darker than osu!'s 10% and with the
-        /// same faint cool lean as the darkened overlay surfaces (see <see cref="OverlayColourProvider.NeutralGrey"/>).
+        /// The toolbar's surface. type!beat: a 6% neutral grey, darkened from osu!'s 10% like the overlay
+        /// surfaces (see <see cref="OverlayColourProvider.SURFACE_DARKENING"/>), with their faint cool lean
+        /// (see <see cref="OverlayColourProvider.NeutralGrey"/>).
         /// </summary>
-        public static readonly Color4 BACKGROUND_COLOUR = OverlayColourProvider.NeutralGrey(0.08f);
+        public static readonly Color4 BACKGROUND_COLOUR = OverlayColourProvider.NeutralGrey(0.06f);
 
         /// <summary>
         /// Whether the user hid this <see cref="Toolbar"/> with <see cref="GlobalAction.ToggleToolbar"/>.

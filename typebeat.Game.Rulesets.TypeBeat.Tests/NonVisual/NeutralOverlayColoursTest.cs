@@ -97,8 +97,8 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         {
             var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
 
-            Assert.That(provider.Background5, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.15f * 0.8f)));
-            Assert.That(provider.Dark1, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.02f, 0.35f * 0.8f)));
+            Assert.That(provider.Background5, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.15f * 0.6f)));
+            Assert.That(provider.Dark1, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.02f, 0.35f * 0.6f)));
             // The lightest grey and the text greys keep their lightness.
             Assert.That(provider.Background1, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.4f)));
             Assert.That(provider.Content2, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.04f, 0.9f)));
@@ -119,7 +119,7 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 
         [Test]
         public void TheToolbarSitsDarkerToo()
-            => Assert.That(Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.08f)));
+            => Assert.That(Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR, Is.EqualTo((Color4)Colour4.FromHSL(225 / 360f, 0.01f, 0.06f)));
 
         [Test]
         public void ChangingSchemeCarriesTheNeutralGreys()

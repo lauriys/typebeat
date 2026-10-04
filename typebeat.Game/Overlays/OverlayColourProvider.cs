@@ -124,14 +124,14 @@ namespace typebeat.Game.Overlays
         /// </summary>
         public static Color4 NeutralGrey(float lightness) => getColour(NEUTRAL_GREY_HUE, 0.01f, lightness);
 
-        // The dark surfaces (panels, cards, sidebars) also sit darker on the neutral scheme, nearer the
-        // website's near-black. Background1 stays put: it is the lightest step, used for borders and
+        // The dark surfaces (panels, cards, sidebars) also sit darker on the neutral scheme, about the
+        // website's near-black, for a terminal-like depth. Background1 stays put: it is the lightest step, used for borders and
         // dimmed text, which would lose contrast.
         private Color4 getSurface(float saturation, float lightness) => getGrey(saturation, NeutralGreys ? lightness * SURFACE_DARKENING : lightness);
 
         /// <summary>
         /// How much darker the neutral scheme's dark surfaces sit than osu!'s, as a lightness factor.
         /// </summary>
-        public const float SURFACE_DARKENING = 0.8f;
+        public const float SURFACE_DARKENING = 0.6f;
     }
 }
