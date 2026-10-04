@@ -327,6 +327,12 @@ namespace typebeat.Game.Graphics
         public readonly Color4 PinkDark = Color4Extensions.FromHex(@"b0dd39");
         public readonly Color4 PinkDarker = Color4Extensions.FromHex(@"8db12e");
 
+        // type!beat: the brand's second accent, a deep olive under the lime, worn where osu! paired its
+        // pink with a second hue (the back buttons, against the lime "next"). Dark enough for white
+        // text, which the lime is not: 5.4:1 on Olive, 3.7:1 on OliveLight (its hover/highlight).
+        public readonly Color4 Olive = Color4Extensions.FromHex(@"5d721d");
+        public readonly Color4 OliveLight = Color4Extensions.FromHex(@"748f24");
+
         public readonly Color4 BlueLighter = Color4Extensions.FromHex(@"ddffff");
         public readonly Color4 BlueLight = Color4Extensions.FromHex(@"99eeff");
         public readonly Color4 Blue = Color4Extensions.FromHex(@"66ccff");

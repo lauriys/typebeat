@@ -7,12 +7,16 @@ using System.Linq;
 using NUnit.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Testing;
 using typebeat.Game.Graphics;
+using typebeat.Game.Graphics.UserInterface;
 using typebeat.Game.Graphics.UserInterfaceV2;
 using typebeat.Game.Overlays;
+using typebeat.Game.Screens.Footer;
 using typebeat.Game.Tests.Visual;
 using osuTK;
 using osuTK.Graphics;
@@ -21,13 +25,14 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
 {
     /// <summary>
     /// Text and icons on accent-filled buttons take the scheme's <see cref="OverlayColourProvider.ForegroundOnAccent"/>:
-    /// the website's #141519 on the default scheme's lime, white on osu!'s schemes, and white again
-    /// wherever a button brings its own background colour.
+    /// a deep olive ink on the default scheme's lime, white on osu!'s schemes, and white again
+    /// wherever a button brings its own background colour. The back buttons wear the olive second
+    /// accent with white text.
     /// </summary>
     [TestFixture]
     public partial class TestSceneAccentButtonText : OsuTestScene
     {
-        private static readonly Color4 ink = new Color4(20, 21, 25, 255);
+        private static readonly Color4 ink = new Color4(0x30, 0x39, 0x13, 255);
 
         private RoundedButton accentButton = null!;
         private RoundedButton localButton = null!;
@@ -81,6 +86,26 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
             create(OverlayColourScheme.Purple);
             AddStep("give the accent button its own colour", () => accentButton.BackgroundColour = new OsuColour().Red2);
             AddAssert("text is white again", () => text(accentButton) == Color4.White);
+        }
+
+        [Test]
+        public void TestBackButtonsAreOlive()
+        {
+            ScreenBackButton screenBack = null!;
+            BackButton back = null!;
+
+            AddStep("create back buttons", () => Child = new DependencyProvidingContainer
+            {
+                RelativeSizeAxes = Axes.Both,
+                CachedDependencies = new (System.Type, object)[] { (typeof(OverlayColourProvider), new OverlayColourProvider(OverlayColourScheme.Purple)) },
+                Children = new Drawable[]
+                {
+                    screenBack = new ScreenBackButton { Anchor = Anchor.TopLeft, Origin = Anchor.TopLeft, Action = () => { } },
+                    back = new BackButton { Anchor = Anchor.BottomLeft, Origin = Anchor.BottomLeft, State = { Value = Visibility.Visible } },
+                }
+            });
+            AddUntilStep("footer back button is olive", () => screenBack.ChildrenOfType<Box>().Any(b => b.Colour.Equals((ColourInfo)new OsuColour().Olive)));
+            AddAssert("legacy back button is olive", () => back.ChildrenOfType<TwoLayerButton>().Single().HoverColour == new OsuColour().OliveLight);
         }
 
         private static Color4 text(RoundedButton button) => button.ChildrenOfType<SpriteText>().Single().Colour;

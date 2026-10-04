@@ -4,6 +4,7 @@
 using System;
 using NUnit.Framework;
 using osu.Framework.Graphics;
+using typebeat.Game.Graphics;
 using typebeat.Game.Overlays;
 using osuTK.Graphics;
 
@@ -11,13 +12,14 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 {
     /// <summary>
     /// The default overlay scheme ("Purple": settings, notifications, login, first-run setup, ...):
-    /// lime accents on neutral greys, with the website's ink for text on the accent. Every other
-    /// scheme keeps osu!'s tinted greys and white text.
+    /// lime accents on neutral greys, with a deep olive ink for text on the accent. Every other
+    /// scheme keeps osu!'s tinted greys and white text. Also the olive second accent, which carries
+    /// white text where the lime cannot.
     /// </summary>
     [TestFixture]
     public class NeutralOverlayColoursTest
     {
-        private static readonly Color4 ink = new Color4(20, 21, 25, 255); // #141519
+        private static readonly Color4 ink = new Color4(0x30, 0x39, 0x13, 255); // #303913
 
         [Test]
         public void TheDefaultSchemeHasLimeAccents()
@@ -51,8 +53,28 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         [Test]
-        public void TextOnTheLimeAccentIsTheWebsitesInk()
+        public void TextOnTheLimeAccentIsTheOliveInk()
             => Assert.That(new OverlayColourProvider(OverlayColourScheme.Purple).ForegroundOnAccent, Is.EqualTo(ink));
+
+        [Test]
+        public void TextOnTheLimeAccentIsReadable()
+        {
+            var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
+
+            // WCAG AA for normal text is 4.5:1; white on the same fill is under 2:1.
+            Assert.That(contrast(provider.ForegroundOnAccent, provider.Colour3), Is.GreaterThanOrEqualTo(4.5));
+            Assert.That(contrast(Color4.White, provider.Colour3), Is.LessThan(2));
+        }
+
+        [Test]
+        public void WhiteTextOnTheOliveIsReadable()
+        {
+            var colours = new OsuColour();
+
+            Assert.That(contrast(Color4.White, colours.Olive), Is.GreaterThanOrEqualTo(4.5));
+            // The highlight is bold text's 3:1 at least.
+            Assert.That(contrast(Color4.White, colours.OliveLight), Is.GreaterThanOrEqualTo(3));
+        }
 
         [Test]
         public void ChangingSchemeCarriesTheNeutralGreys()
@@ -76,5 +98,15 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         private static float spread(Color4 c) => Math.Max(c.R, Math.Max(c.G, c.B)) - Math.Min(c.R, Math.Min(c.G, c.B));
+
+        private static double contrast(Color4 a, Color4 b)
+        {
+            double la = luminance(a), lb = luminance(b);
+            return (Math.Max(la, lb) + 0.05) / (Math.Min(la, lb) + 0.05);
+        }
+
+        private static double luminance(Color4 c) => 0.2126 * linear(c.R) + 0.7152 * linear(c.G) + 0.0722 * linear(c.B);
+
+        private static double linear(float channel) => channel <= 0.04045 ? channel / 12.92 : Math.Pow((channel + 0.055) / 1.055, 2.4);
     }
 }

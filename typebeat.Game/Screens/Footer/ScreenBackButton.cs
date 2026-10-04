@@ -2,7 +2,6 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using osu.Framework.Allocation;
-using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
@@ -33,7 +32,7 @@ namespace typebeat.Game.Screens.Footer
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(OsuColour colours)
         {
             Width = BUTTON_WIDTH;
 
@@ -63,8 +62,10 @@ namespace typebeat.Game.Screens.Footer
                 }
             };
 
-            DarkerColour = Color4Extensions.FromHex("#DE31AE");
-            LighterColour = Color4Extensions.FromHex("#FF86DD");
+            // type!beat: was osu!'s pink (#DE31AE / #FF86DD), which the rebrand missed; now the olive
+            // second accent, so "back" pairs with the lime "next" the way osu!'s pink did with its violet.
+            DarkerColour = colours.Olive;
+            LighterColour = colours.OliveLight;
             TextColour = Color4.White;
         }
     }

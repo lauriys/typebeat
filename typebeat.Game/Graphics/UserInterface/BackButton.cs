@@ -43,8 +43,9 @@ namespace typebeat.Game.Graphics.UserInterface
         [BackgroundDependencyLoader]
         private void load(OsuColour colours)
         {
-            button.BackgroundColour = colours.Pink;
-            button.HoverColour = colours.PinkDark;
+            // type!beat: olive, the brand's second accent; white text is unreadable on the lime "Pink".
+            button.BackgroundColour = colours.Olive;
+            button.HoverColour = colours.OliveLight;
         }
 
         protected override void PopIn()

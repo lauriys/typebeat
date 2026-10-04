@@ -63,11 +63,12 @@ namespace typebeat.Game.Overlays
         /// <summary>
         /// The colour for text and icons drawn on an accent fill such as <see cref="Colour3"/>. White,
         /// except with <see cref="NeutralGreys"/>: that scheme's lime accent is too light for white
-        /// text, so it takes the website's ink, #141519, the colour it sets on its own lime buttons.
+        /// text (1.9:1), so it takes a deep olive ink, #303913 (6.5:1 on <see cref="Colour3"/>). Softer
+        /// than the website's near-black #141519, which read harsh on the in-game buttons.
         /// </summary>
         public Color4 ForegroundOnAccent => NeutralGreys ? accent_ink : Color4.White;
 
-        private static readonly Color4 accent_ink = new Color4(20, 21, 25, 255);
+        private static readonly Color4 accent_ink = new Color4(0x30, 0x39, 0x13, 255);
 
         /// <summary>
         /// Changes the <see cref="Hue"/> to a different degree.
