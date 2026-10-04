@@ -5,12 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using osu.Framework;
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Rendering;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
+using osu.Framework.IO.Stores;
 using osu.Framework.Localisation;
+using osu.Framework.Platform;
 using typebeat.Game.Beatmaps;
 using typebeat.Game.Configuration;
 using typebeat.Game.Overlays.Settings;
@@ -33,7 +39,6 @@ using typebeat.Game.Screens.Ranking.Statistics;
 using typebeat.Game.Rulesets.UI;
 using typebeat.Game.Storyboards;
 using osuTK;
-using osuTK.Graphics;
 
 namespace typebeat.Game.Rulesets.TypeBeat
 {
@@ -472,17 +477,35 @@ namespace typebeat.Game.Rulesets.TypeBeat
         public override Drawable CreateIcon() => new Icon();
 
         /// <summary>
-        /// Rendered in the toolbar ruleset button and the intro's ruleset flow. Deliberately
-        /// glyphless; the label rendered poorly at toolbar size.
+        /// Rendered in the toolbar ruleset button and the settings ruleset tabs: a keycap outline,
+        /// white on transparent so callers can tint it. Drawn from Resources/Textures/ruleset-icon.png,
+        /// which is exported from assets/typebeat-ruleset-icon.svg. Kept at the fixed 20px the old
+        /// solid circle had, so every caller lays it out exactly as before.
         /// </summary>
         public partial class Icon : CompositeDrawable
         {
+            /// <summary>
+            /// One store per renderer rather than per icon: song select builds an icon for every
+            /// panel, and a store per icon would upload the same texture once per panel. Keyed by
+            /// renderer (not a plain static) because tests run several game hosts in one process.
+            /// </summary>
+            private static readonly ConditionalWeakTable<IRenderer, TextureStore> texture_stores = new ConditionalWeakTable<IRenderer, TextureStore>();
+
             public Icon()
             {
-                InternalChild = new Circle
+                Size = new Vector2(20);
+            }
+
+            [BackgroundDependencyLoader]
+            private void load(GameHost host)
+            {
+                var textures = texture_stores.GetValue(host.Renderer, renderer =>
+                    new TextureStore(renderer, host.CreateTextureLoaderStore(new NamespacedResourceStore<byte[]>(new TypeBeatRuleset().CreateResourceStore(), @"Textures"))));
+
+                InternalChild = new Sprite
                 {
-                    Size = new Vector2(20),
-                    Colour = Color4.White,
+                    RelativeSizeAxes = Axes.Both,
+                    Texture = textures.Get(@"ruleset-icon"),
                 };
             }
         }
