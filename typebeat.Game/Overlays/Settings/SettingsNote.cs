@@ -41,7 +41,7 @@ namespace typebeat.Game.Overlays.Settings
                 {
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y,
-                    CornerRadius = 5,
+                    CornerRadius = UICorners.RADIUS,
                     CornerExponent = 2.5f,
                     Masking = true,
                     Children = new Drawable[]

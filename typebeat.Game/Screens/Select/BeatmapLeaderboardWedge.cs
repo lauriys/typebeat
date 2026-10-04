@@ -163,7 +163,7 @@ namespace typebeat.Game.Screens.Select
                         {
                             Left = -40f,
                         },
-                        CornerRadius = 10f,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         // push the personal best 1px down to hide masking issues
                         Y = 1f,

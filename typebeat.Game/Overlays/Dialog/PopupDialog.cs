@@ -19,6 +19,7 @@ using typebeat.Game.Graphics.Containers;
 using osuTK;
 using osuTK.Graphics;
 using osuTK.Input;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Overlays.Dialog
 {
@@ -132,7 +133,7 @@ namespace typebeat.Game.Overlays.Dialog
                         {
                             RelativeSizeAxes = Axes.Both,
                             Masking = true,
-                            CornerRadius = 20,
+                            CornerRadius = UICorners.RADIUS,
                             CornerExponent = 2.5f,
                             EdgeEffect = new EdgeEffectParameters
                             {

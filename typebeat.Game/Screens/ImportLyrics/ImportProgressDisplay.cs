@@ -14,6 +14,7 @@ using osu.Framework.Graphics.Shapes;
 using typebeat.Game.Overlays;
 using typebeat.Game.Screens.Edit.Submission;
 using osuTK;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Screens.ImportLyrics
 {
@@ -59,7 +60,7 @@ namespace typebeat.Game.Screens.ImportLyrics
                 AutoSizeDuration = 400,
                 AutoSizeEasing = Easing.OutQuint,
                 Masking = true,
-                CornerRadius = 8,
+                CornerRadius = UICorners.RADIUS,
                 Children = new Drawable[]
                 {
                     new Box

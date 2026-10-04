@@ -17,7 +17,7 @@ namespace typebeat.Game.Graphics.UserInterface
     public partial class ShearedButton : OsuClickableContainer
     {
         public const float DEFAULT_HEIGHT = 50;
-        public const float CORNER_RADIUS = 7;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
         public const float BORDER_THICKNESS = 2;
 
         public LocalisableString Text

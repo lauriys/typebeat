@@ -136,7 +136,7 @@ namespace typebeat.Game.Overlays.FirstRunSetup
 
                     Size = new Vector2(160, 50);
                     Masking = true;
-                    CornerRadius = 10;
+                    CornerRadius = UICorners.RADIUS;
                 }
 
                 [BackgroundDependencyLoader]

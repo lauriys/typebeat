@@ -134,7 +134,7 @@ namespace typebeat.Game.Screens.Play
                             Margin = new MarginPadding(10),
                             Origin = Anchor.TopCentre,
                             Anchor = Anchor.TopCentre,
-                            CornerRadius = 10,
+                            CornerRadius = UICorners.RADIUS,
                             Masking = true,
                             Children = new[]
                             {

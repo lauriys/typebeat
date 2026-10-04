@@ -26,6 +26,7 @@ using typebeat.Game.Resources.Localisation.Web;
 using typebeat.Game.Rulesets.Mods;
 using typebeat.Game.Utils;
 using osuTK;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Screens.Select
 {
@@ -99,7 +100,7 @@ namespace typebeat.Game.Screens.Select
                 {
                     new ShearAligningWrapper(new Container
                     {
-                        CornerRadius = 10,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         RelativeSizeAxes = Axes.X,
                         AutoSizeAxes = Axes.Y,
@@ -192,7 +193,7 @@ namespace typebeat.Game.Screens.Select
                     new ShearAligningWrapper(ratingsWedge = new Container
                     {
                         Alpha = 0f,
-                        CornerRadius = 10,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         RelativeSizeAxes = Axes.X,
                         AutoSizeAxes = Axes.Y,
@@ -231,7 +232,7 @@ namespace typebeat.Game.Screens.Select
                     new ShearAligningWrapper(typingPaceWedge = new Container
                     {
                         Alpha = 0f,
-                        CornerRadius = 10,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         RelativeSizeAxes = Axes.X,
                         AutoSizeAxes = Axes.Y,

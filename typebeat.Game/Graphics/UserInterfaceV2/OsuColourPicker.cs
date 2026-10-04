@@ -9,7 +9,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
     {
         public OsuColourPicker()
         {
-            CornerRadius = 10;
+            CornerRadius = UICorners.RADIUS;
             Masking = true;
         }
 

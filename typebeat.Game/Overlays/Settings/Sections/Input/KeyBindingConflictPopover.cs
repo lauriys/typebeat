@@ -197,7 +197,7 @@ namespace typebeat.Game.Overlays.Settings.Sections.Input
                 {
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y,
-                    CornerRadius = 5,
+                    CornerRadius = UICorners.RADIUS,
                     Masking = true,
                     Children = new Drawable[]
                     {
@@ -224,7 +224,7 @@ namespace typebeat.Game.Overlays.Settings.Sections.Input
                                     new Container
                                     {
                                         AutoSizeAxes = Axes.Both,
-                                        CornerRadius = 5,
+                                        CornerRadius = UICorners.RADIUS,
                                         Masking = true,
                                         Anchor = Anchor.CentreRight,
                                         Origin = Anchor.CentreRight,

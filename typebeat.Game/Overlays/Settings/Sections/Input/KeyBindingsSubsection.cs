@@ -13,6 +13,7 @@ using typebeat.Game.Input.Bindings;
 using typebeat.Game.Localisation;
 using osuTK;
 using Realms;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Overlays.Settings.Sections.Input
 {
@@ -124,7 +125,7 @@ namespace typebeat.Game.Overlays.Settings.Sections.Input
             Margin = new MarginPadding { Top = 15 };
             Height = 30;
 
-            Content.CornerRadius = 5;
+            Content.CornerRadius = UICorners.RADIUS;
         }
 
         // Empty FilterTerms so that the ResetButton is visible only when the whole subsection is visible.

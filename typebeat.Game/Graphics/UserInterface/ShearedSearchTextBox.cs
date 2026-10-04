@@ -18,7 +18,7 @@ namespace typebeat.Game.Graphics.UserInterface
 {
     public partial class ShearedSearchTextBox : CompositeDrawable, IHasCurrentValue<string>
     {
-        private const float corner_radius = 7;
+        private const float corner_radius = UICorners.RADIUS;
 
         private readonly Box background;
         protected readonly InnerSearchTextBox TextBox;

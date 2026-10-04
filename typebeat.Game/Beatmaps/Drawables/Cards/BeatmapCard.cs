@@ -16,13 +16,14 @@ using typebeat.Game.Online;
 using typebeat.Game.Online.API.Requests.Responses;
 using typebeat.Game.Overlays;
 using typebeat.Game.Localisation;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Beatmaps.Drawables.Cards
 {
     public abstract partial class BeatmapCard : OsuClickableContainer, IHasContextMenu
     {
         public const float TRANSITION_DURATION = 360;
-        public const float CORNER_RADIUS = 8;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
 
         public const float WIDTH = 345;
 

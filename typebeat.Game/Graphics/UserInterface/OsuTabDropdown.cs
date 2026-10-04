@@ -104,7 +104,7 @@ namespace typebeat.Game.Graphics.UserInterface
                 BackgroundColour = Color4.Black.Opacity(0.5f);
 
                 Background.Height = 0.5f;
-                Background.CornerRadius = 5;
+                Background.CornerRadius = UICorners.RADIUS;
                 Background.Masking = true;
 
                 Foreground.RelativeSizeAxes = Axes.None;

@@ -22,7 +22,7 @@ namespace typebeat.Game.Graphics
         {
             AutoSizeAxes = Axes.Both;
             Masking = true;
-            CornerRadius = 5;
+            CornerRadius = UICorners.RADIUS;
 
             Children = new Drawable[]
             {

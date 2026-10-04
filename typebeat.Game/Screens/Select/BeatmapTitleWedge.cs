@@ -32,7 +32,7 @@ namespace typebeat.Game.Screens.Select
 {
     public partial class BeatmapTitleWedge : VisibilityContainer
     {
-        private const float corner_radius = 10;
+        private const float corner_radius = UICorners.RADIUS;
 
         [Resolved]
         private IBindable<WorkingBeatmap> working { get; set; } = null!;

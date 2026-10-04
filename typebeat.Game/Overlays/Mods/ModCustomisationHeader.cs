@@ -42,7 +42,7 @@ namespace typebeat.Game.Overlays.Mods
         [BackgroundDependencyLoader]
         private void load()
         {
-            CornerRadius = 10f;
+            CornerRadius = UICorners.RADIUS;
             Masking = true;
 
             Children = new Drawable[]

@@ -68,7 +68,7 @@ namespace typebeat.Game.Screens.Select
                 private void load()
                 {
                     AutoSizeAxes = Axes.Both;
-                    CornerRadius = 10;
+                    CornerRadius = UICorners.RADIUS;
                     Masking = true;
 
                     EdgeEffect = new EdgeEffectParameters

@@ -33,7 +33,7 @@ namespace typebeat.Game.Beatmaps.Drawables
         {
             AutoSizeAxes = Axes.Both;
             Masking = true;
-            CornerRadius = 5;
+            CornerRadius = UICorners.RADIUS;
 
             Children = new Drawable[]
             {

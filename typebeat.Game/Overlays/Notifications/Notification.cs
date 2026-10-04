@@ -64,7 +64,7 @@ namespace typebeat.Game.Overlays.Notifications
         public virtual string PopInSampleName => "UI/notification-default";
         public virtual string PopOutSampleName => "UI/overlay-pop-out";
 
-        protected const float CORNER_RADIUS = 6;
+        protected const float CORNER_RADIUS = UICorners.RADIUS;
 
         protected NotificationLight Light;
 

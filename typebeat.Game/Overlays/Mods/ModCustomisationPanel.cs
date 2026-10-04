@@ -71,7 +71,7 @@ namespace typebeat.Game.Overlays.Mods
                     RelativeSizeAxes = Axes.X,
                     BorderColour = colourProvider.Dark3,
                     BorderThickness = content_border_thickness,
-                    CornerRadius = 10f,
+                    CornerRadius = UICorners.RADIUS,
                     Masking = true,
                     EdgeEffect = new EdgeEffectParameters
                     {

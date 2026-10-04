@@ -27,7 +27,7 @@ namespace typebeat.Game.Overlays
 
         private const float transition_duration = 250;
         private const int header_height = 30;
-        private const int corner_radius = 5;
+        private const float corner_radius = UICorners.RADIUS;
 
         protected override Container<Drawable> Content => content;
 

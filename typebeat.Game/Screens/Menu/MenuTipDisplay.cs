@@ -89,7 +89,7 @@ namespace typebeat.Game.Screens.Menu
                     RelativeSizeAxes = Axes.Both,
                     Masking = true,
                     CornerExponent = 2.5f,
-                    CornerRadius = 10,
+                    CornerRadius = UICorners.RADIUS,
                     Children = new Drawable[]
                     {
                         new Box

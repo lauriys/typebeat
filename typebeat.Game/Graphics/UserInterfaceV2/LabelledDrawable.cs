@@ -40,7 +40,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
         protected const float CONTENT_PADDING_VERTICAL = 10;
         protected const float CONTENT_PADDING_HORIZONTAL = 15;
 
-        public const float CORNER_RADIUS = 15;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
 
         /// <summary>
         /// The component that is being displayed.

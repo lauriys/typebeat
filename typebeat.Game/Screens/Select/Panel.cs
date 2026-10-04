@@ -28,7 +28,7 @@ namespace typebeat.Game.Screens.Select
 {
     public abstract partial class Panel : PoolableDrawable, ICarouselPanel, IHasContextMenu
     {
-        public const float CORNER_RADIUS = 10;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
 
         private const float active_x_offset = 25f;
 

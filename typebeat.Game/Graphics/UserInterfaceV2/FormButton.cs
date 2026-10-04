@@ -96,7 +96,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
                 RelativeSizeAxes = Axes.X,
                 AutoSizeAxes = Axes.Y,
                 Masking = true,
-                CornerRadius = 5,
+                CornerRadius = UICorners.RADIUS,
                 CornerExponent = 2.5f,
                 Children = new Drawable[]
                 {

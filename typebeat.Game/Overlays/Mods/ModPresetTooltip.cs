@@ -32,7 +32,7 @@ namespace typebeat.Game.Overlays.Mods
             AutoSizeAxes = Axes.Y;
 
             Masking = true;
-            CornerRadius = 7;
+            CornerRadius = UICorners.RADIUS;
 
             InternalChildren = new Drawable[]
             {

@@ -16,7 +16,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
     public partial class OsuHSVColourPicker : HSVColourPicker
     {
         private const float spacing = 10;
-        private const float corner_radius = 10;
+        private const float corner_radius = UICorners.RADIUS;
         private const float control_border_thickness = 3;
 
         protected override HueSelector CreateHueSelector() => new OsuHueSelector();

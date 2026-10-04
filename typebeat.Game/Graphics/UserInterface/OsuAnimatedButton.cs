@@ -56,7 +56,7 @@ namespace typebeat.Game.Graphics.UserInterface
                 Origin = Anchor.Centre,
                 Anchor = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
-                CornerRadius = 10,
+                CornerRadius = UICorners.RADIUS,
                 CornerExponent = 2.5f,
                 Masking = true,
                 EdgeEffect = new EdgeEffectParameters

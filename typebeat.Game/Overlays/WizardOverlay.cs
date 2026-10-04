@@ -82,7 +82,7 @@ namespace typebeat.Game.Overlays
                                 new InputBlockingContainer
                                 {
                                     Masking = true,
-                                    CornerRadius = 14,
+                                    CornerRadius = UICorners.RADIUS,
                                     RelativeSizeAxes = Axes.Both,
                                     Children = new Drawable[]
                                     {

@@ -30,7 +30,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2.FileSelection
             RelativeSizeAxes = Axes.Both;
 
             Masking = true;
-            CornerRadius = 5;
+            CornerRadius = UICorners.RADIUS;
 
             InternalChildren = new Drawable[]
             {

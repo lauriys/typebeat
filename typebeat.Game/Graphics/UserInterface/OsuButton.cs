@@ -82,7 +82,7 @@ namespace typebeat.Game.Graphics.UserInterface
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Masking = true,
-                CornerRadius = 5,
+                CornerRadius = UICorners.RADIUS,
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {

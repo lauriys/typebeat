@@ -37,7 +37,7 @@ namespace typebeat.Game.Screens.Play
             RelativeSizeAxes = Axes.X;
             AutoSizeAxes = Axes.Y;
             Masking = true;
-            CornerRadius = 5;
+            CornerRadius = UICorners.RADIUS;
 
             if (IsImportant)
             {

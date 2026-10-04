@@ -108,7 +108,7 @@ namespace typebeat.Game.Screens.Edit.Submission
                                     Origin = Anchor.CentreRight,
                                     Width = 150,
                                     Height = 10,
-                                    CornerRadius = 5,
+                                    CornerRadius = UICorners.RADIUS,
                                     Masking = true,
                                     Children = new[]
                                     {

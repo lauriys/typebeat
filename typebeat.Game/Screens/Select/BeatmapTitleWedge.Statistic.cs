@@ -57,7 +57,7 @@ namespace typebeat.Game.Screens.Select
             private void load(OverlayColourProvider colourProvider)
             {
                 Masking = true;
-                CornerRadius = 5;
+                CornerRadius = UICorners.RADIUS;
                 Shear = background ? OsuGame.SHEAR : Vector2.Zero;
 
                 InternalChildren = new Drawable[]

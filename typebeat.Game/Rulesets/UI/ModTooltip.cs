@@ -36,7 +36,7 @@ namespace typebeat.Game.Rulesets.UI
         private void load()
         {
             AutoSizeAxes = Axes.Both;
-            CornerRadius = 7;
+            CornerRadius = UICorners.RADIUS;
             Masking = true;
 
             EdgeEffect = new EdgeEffectParameters

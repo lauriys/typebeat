@@ -178,7 +178,7 @@ namespace typebeat.Game.Screens.Select
                 private void load()
                 {
                     SpriteText.Colour = TextColour ?? Color4.White;
-                    Content.CornerRadius = 10;
+                    Content.CornerRadius = UICorners.RADIUS;
 
                     Add(new SpriteIcon
                     {

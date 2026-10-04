@@ -56,7 +56,7 @@ namespace typebeat.Game.Collections
 
             // This doesn't match the latest design spec (should be 5) but is an in-between that feels right to the eye
             // until we move everything over to Form controls.
-            CornerRadius = 10;
+            CornerRadius = UICorners.RADIUS;
             CornerExponent = 2.5f;
         }
 
@@ -139,7 +139,7 @@ namespace typebeat.Game.Collections
             {
                 this.collection = collection;
 
-                CornerRadius = 10;
+                CornerRadius = UICorners.RADIUS;
                 CornerExponent = 2.5f;
             }
 

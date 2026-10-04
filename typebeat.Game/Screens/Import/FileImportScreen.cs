@@ -49,7 +49,7 @@ namespace typebeat.Game.Screens.Import
             InternalChild = contentContainer = new Container
             {
                 Masking = true,
-                CornerRadius = 10,
+                CornerRadius = UICorners.RADIUS,
                 RelativeSizeAxes = Axes.Both,
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,

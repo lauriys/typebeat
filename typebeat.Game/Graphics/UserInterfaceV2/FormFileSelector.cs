@@ -342,7 +342,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
                     RelativeSizeAxes = Axes.Both,
                     Masking = true,
                     BorderThickness = 2,
-                    CornerRadius = 10,
+                    CornerRadius = UICorners.RADIUS,
                     BorderColour = colourProvider.Highlight1,
                     Children = new Drawable[]
                     {

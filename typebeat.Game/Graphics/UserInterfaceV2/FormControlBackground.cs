@@ -44,7 +44,7 @@ namespace typebeat.Game.Graphics.UserInterfaceV2
             RelativeSizeAxes = Axes.Both;
 
             Masking = true;
-            CornerRadius = 5;
+            CornerRadius = UICorners.RADIUS;
             CornerExponent = 2.5f;
 
             CornerExponent = CORNER_EXPONENT;

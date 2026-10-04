@@ -28,6 +28,7 @@ using typebeat.Game.Rulesets.Mods;
 using typebeat.Game.Screens.Select.Filter;
 using osuTK;
 using osuTK.Input;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Screens.Select
 {
@@ -36,7 +37,7 @@ namespace typebeat.Game.Screens.Select
         // taken from draw visualiser. used for carousel alignment purposes.
         public const float HEIGHT_FROM_SCREEN_TOP = 141 - corner_radius;
 
-        private const float corner_radius = 10;
+        private const float corner_radius = UICorners.RADIUS;
 
         private SongSelectSearchTextBox searchTextBox = null!;
         private ShearedToggleButton showConvertedBeatmapsButton = null!;

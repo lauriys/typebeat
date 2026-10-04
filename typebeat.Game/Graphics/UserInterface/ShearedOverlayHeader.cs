@@ -68,7 +68,7 @@ namespace typebeat.Game.Graphics.UserInterface
                     {
                         RelativeSizeAxes = Axes.X,
                         Height = HEIGHT,
-                        CornerRadius = corner_radius,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         BorderThickness = 2,
                         Child = underlayBackground = new Box
@@ -80,7 +80,7 @@ namespace typebeat.Game.Graphics.UserInterface
                     {
                         RelativeSizeAxes = Axes.X,
                         Height = main_area_height + corner_radius,
-                        CornerRadius = corner_radius,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         BorderThickness = 2,
                         EdgeEffect = new EdgeEffectParameters

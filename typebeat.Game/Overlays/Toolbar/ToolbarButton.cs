@@ -80,7 +80,7 @@ namespace typebeat.Game.Overlays.Toolbar
                         {
                             RelativeSizeAxes = Axes.Both,
                             Masking = true,
-                            CornerRadius = 6,
+                            CornerRadius = UICorners.RADIUS,
                             CornerExponent = 3f,
                             Children = new Drawable[]
                             {

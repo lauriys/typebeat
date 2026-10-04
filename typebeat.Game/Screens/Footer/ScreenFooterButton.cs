@@ -26,7 +26,7 @@ namespace typebeat.Game.Screens.Footer
 {
     public partial class ScreenFooterButton : OsuClickableContainer, IKeyBindingHandler<GlobalAction>
     {
-        public const int CORNER_RADIUS = 10;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
 
         public const int HEIGHT = 75;
         protected const int BUTTON_WIDTH = 116;

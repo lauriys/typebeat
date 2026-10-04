@@ -32,6 +32,7 @@ using typebeat.Game.Overlays;
 using typebeat.Game.Overlays.Notifications;
 using typebeat.Game.Screens.Select;
 using osuTK;
+using typebeat.Game.Graphics;
 
 namespace typebeat.Game.Screens.Edit.Submission
 {
@@ -154,7 +155,7 @@ namespace typebeat.Game.Screens.Edit.Submission
                     Origin = Anchor.Centre,
                     Width = 0.6f,
                     Masking = true,
-                    CornerRadius = 10,
+                    CornerRadius = UICorners.RADIUS,
                     Children = new Drawable[]
                     {
                         new Box

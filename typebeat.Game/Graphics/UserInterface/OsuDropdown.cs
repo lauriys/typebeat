@@ -26,7 +26,7 @@ namespace typebeat.Game.Graphics.UserInterface
 {
     public partial class OsuDropdown<T> : Dropdown<T>, IKeyBindingHandler<GlobalAction>
     {
-        private const float corner_radius = 5;
+        private const float corner_radius = UICorners.RADIUS;
 
         protected override DropdownHeader CreateHeader() => new OsuDropdownHeader();
 

@@ -43,7 +43,7 @@ namespace typebeat.Game.Overlays.Mods
             set => descriptionText.Text = value;
         }
 
-        public const float CORNER_RADIUS = 7;
+        public const float CORNER_RADIUS = UICorners.RADIUS;
         public const float HEIGHT = 42;
 
         public const double SAMPLE_PLAYBACK_DELAY = 30;

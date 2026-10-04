@@ -18,7 +18,7 @@ namespace typebeat.Game.Graphics.UserInterface
         public OsuContextMenu(bool playSamples)
             : base(Direction.Vertical, topLevelMenu: false, playSamples)
         {
-            MaskingContainer.CornerRadius = 5;
+            MaskingContainer.CornerRadius = UICorners.RADIUS;
             MaskingContainer.EdgeEffect = new EdgeEffectParameters
             {
                 Type = EdgeEffectType.Shadow,

@@ -58,7 +58,7 @@ namespace typebeat.Game.Graphics.Cursor
             {
                 AutoSizeEasing = Easing.OutQuint;
 
-                CornerRadius = 5;
+                CornerRadius = UICorners.RADIUS;
                 Masking = true;
                 EdgeEffect = new EdgeEffectParameters
                 {

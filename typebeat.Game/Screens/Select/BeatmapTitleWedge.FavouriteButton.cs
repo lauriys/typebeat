@@ -66,7 +66,7 @@ namespace typebeat.Game.Screens.Select
             private void load()
             {
                 Masking = true;
-                CornerRadius = 5;
+                CornerRadius = UICorners.RADIUS;
                 Shear = OsuGame.SHEAR;
 
                 AddRange(new Drawable[]

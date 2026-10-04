@@ -44,7 +44,7 @@ namespace typebeat.Game.Collections
             Size = new Vector2(0.5f, 0.8f);
 
             Masking = true;
-            CornerRadius = 10;
+            CornerRadius = UICorners.RADIUS;
         }
 
         [BackgroundDependencyLoader]

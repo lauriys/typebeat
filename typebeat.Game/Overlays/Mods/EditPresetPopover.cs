@@ -82,7 +82,7 @@ namespace typebeat.Game.Overlays.Mods
                     {
                         RelativeSizeAxes = Axes.X,
                         Height = 100,
-                        CornerRadius = 10,
+                        CornerRadius = UICorners.RADIUS,
                         Masking = true,
                         Children = new Drawable[]
                         {
