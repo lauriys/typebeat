@@ -26,8 +26,8 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
     /// <summary>
     /// Text and icons on accent-filled buttons take the scheme's <see cref="OverlayColourProvider.ForegroundOnAccent"/>:
     /// a deep olive ink on the default scheme's lime, white on osu!'s schemes, and white again
-    /// wherever a button brings its own background colour. The back buttons wear the olive second
-    /// accent with white text.
+    /// wherever a button brings its own background colour. The back buttons wear the violet of
+    /// osu!'s pink slot with white text.
     /// </summary>
     [TestFixture]
     public partial class TestSceneAccentButtonText : OsuTestScene
@@ -89,7 +89,7 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
         }
 
         [Test]
-        public void TestBackButtonsAreOlive()
+        public void TestBackButtonsAreViolet()
         {
             ScreenBackButton screenBack = null!;
             BackButton back = null!;
@@ -104,8 +104,8 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
                     back = new BackButton { Anchor = Anchor.BottomLeft, Origin = Anchor.BottomLeft, State = { Value = Visibility.Visible } },
                 }
             });
-            AddUntilStep("footer back button is olive", () => screenBack.ChildrenOfType<Box>().Any(b => b.Colour.Equals((ColourInfo)new OsuColour().Olive)));
-            AddAssert("legacy back button is olive", () => back.ChildrenOfType<TwoLayerButton>().Single().HoverColour == new OsuColour().OliveLight);
+            AddUntilStep("footer back button is violet", () => screenBack.ChildrenOfType<Box>().Any(b => b.Colour.Equals((ColourInfo)new OsuColour().Pink2)));
+            AddAssert("legacy back button is violet", () => back.ChildrenOfType<TwoLayerButton>().Single().HoverColour == new OsuColour().PinkDark);
         }
 
         private static Color4 text(RoundedButton button) => button.ChildrenOfType<SpriteText>().Single().Colour;

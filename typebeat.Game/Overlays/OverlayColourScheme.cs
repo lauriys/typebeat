@@ -58,9 +58,10 @@ namespace typebeat.Game.Overlays
                     return 320;
 
                 case OverlayColourScheme.Pink:
-                    // type!beat: "Pink" is the default/brand scheme (profile overlay, chat, ...) —
-                    // retinted to the Caret lime hue (#c9f24d ≈ 75°) to match the website.
-                    return 75;
+                    // type!beat: osu!'s pink brand scheme (profile overlay, chat, ...) takes violet,
+                    // the hue osu!'s default overlays wore: the two accents trade places, with the
+                    // default overlays (Purple, above) now carrying the brand lime. See OsuColour.
+                    return 255;
             }
         }
 

@@ -18,6 +18,7 @@ using typebeat.Game.Rulesets;
 using osu.Framework.Input.Bindings;
 using typebeat.Game.Graphics.Containers;
 using typebeat.Game.Input.Bindings;
+using osuTK.Graphics;
 
 namespace typebeat.Game.Overlays.Toolbar
 {
@@ -25,6 +26,12 @@ namespace typebeat.Game.Overlays.Toolbar
     {
         public const float HEIGHT = 40;
         public const float TOOLTIP_HEIGHT = 30;
+
+        /// <summary>
+        /// The toolbar's surface. type!beat: 8% grey, a fifth darker than osu!'s 10%, matching the darkened
+        /// overlay surfaces (see <see cref="OverlayColourProvider.SURFACE_DARKENING"/>).
+        /// </summary>
+        public static readonly Color4 BACKGROUND_COLOUR = OsuColour.Gray(0.08f);
 
         /// <summary>
         /// Whether the user hid this <see cref="Toolbar"/> with <see cref="GlobalAction.ToggleToolbar"/>.
@@ -93,7 +100,7 @@ namespace typebeat.Game.Overlays.Toolbar
                                 {
                                     new Box
                                     {
-                                        Colour = OsuColour.Gray(0.1f),
+                                        Colour = BACKGROUND_COLOUR,
                                         RelativeSizeAxes = Axes.Both,
                                     },
                                     new FillFlowContainer
@@ -130,7 +137,7 @@ namespace typebeat.Game.Overlays.Toolbar
                                     },
                                     new Box
                                     {
-                                        Colour = ColourInfo.GradientHorizontal(OsuColour.Gray(0.1f).Opacity(0), OsuColour.Gray(0.1f)),
+                                        Colour = ColourInfo.GradientHorizontal(BACKGROUND_COLOUR.Opacity(0), BACKGROUND_COLOUR),
                                         Width = 50,
                                         RelativeSizeAxes = Axes.Y,
                                         Anchor = Anchor.TopRight,
@@ -149,7 +156,7 @@ namespace typebeat.Game.Overlays.Toolbar
                                 {
                                     new Box
                                     {
-                                        Colour = OsuColour.Gray(0.1f),
+                                        Colour = BACKGROUND_COLOUR,
                                         RelativeSizeAxes = Axes.Both,
                                     },
                                     new FillFlowContainer
@@ -206,7 +213,7 @@ namespace typebeat.Game.Overlays.Toolbar
                     new Box
                     {
                         RelativeSizeAxes = Axes.Both,
-                        Colour = OsuColour.Gray(0.1f),
+                        Colour = BACKGROUND_COLOUR,
                     },
                     gradientBackground = new Box
                     {

@@ -318,20 +318,22 @@ namespace typebeat.Game.Graphics
         public readonly Color4 PurpleDarkAlternative = Color4Extensions.FromHex(@"312436");
         public readonly Color4 PurpleDarker = Color4Extensions.FromHex(@"441188");
 
-        // type!beat: the "Pink" family holds the website's Caret lime ramp (accent #c9f24d) so
-        // every osu-pink accent (nubs, sliders, tab underlines, ...) re-skins in place. Names are
-        // kept to avoid touching hundreds of call sites — same trick as the site's CSS variables.
-        public readonly Color4 PinkLighter = Color4Extensions.FromHex(@"f0fad2");
-        public readonly Color4 PinkLight = Color4Extensions.FromHex(@"d3f66d");
-        public readonly Color4 Pink = Color4Extensions.FromHex(@"c9f24d");
-        public readonly Color4 PinkDark = Color4Extensions.FromHex(@"b0dd39");
-        public readonly Color4 PinkDarker = Color4Extensions.FromHex(@"8db12e");
+        // type!beat: osu!'s two accents trade places. osu! drew its secondary accents pink (back
+        // buttons, dialog confirms, cursor glow, the toolbar clock, controls outside an overlay, ...)
+        // and its default overlays violet; here the default overlays carry the brand lime (see
+        // OverlayColourScheme.Purple), so the "Pink" family holds violet, the lime's complement. The
+        // values are osu!'s own violets. Names are kept to avoid touching hundreds of call sites.
+        public readonly Color4 PinkLighter = Color4Extensions.FromHex(@"eeeeff");
+        public readonly Color4 PinkLight = Color4Extensions.FromHex(@"aa88ff");
+        public readonly Color4 Pink = Color4Extensions.FromHex(@"8c66ff");
+        public readonly Color4 PinkDark = Color4Extensions.FromHex(@"6644cc");
+        public readonly Color4 PinkDarker = Color4Extensions.FromHex(@"441188");
 
-        // type!beat: the brand's second accent, a deep olive under the lime, worn where osu! paired its
-        // pink with a second hue (the back buttons, against the lime "next"). Dark enough for white
-        // text, which the lime is not: 5.4:1 on Olive, 3.7:1 on OliveLight (its hover/highlight).
-        public readonly Color4 Olive = Color4Extensions.FromHex(@"5d721d");
-        public readonly Color4 OliveLight = Color4Extensions.FromHex(@"748f24");
+        /// <summary>
+        /// type!beat's brand colour, the website's Caret lime, for the few places that wear the brand
+        /// itself rather than an accent slot (the main menu logo's visualiser bars).
+        /// </summary>
+        public readonly Color4 BrandLime = Color4Extensions.FromHex(@"c9f24d");
 
         public readonly Color4 BlueLighter = Color4Extensions.FromHex(@"ddffff");
         public readonly Color4 BlueLight = Color4Extensions.FromHex(@"99eeff");
@@ -419,12 +421,12 @@ namespace typebeat.Game.Graphics
         // If the colour in question is supposed to always match the view in which it is displayed theme-wise, use `OverlayColourProvider`.
         // If the colour usage is special and in general differs from the surrounding view in choice of hue, use the `OsuColour` constants.
 
-        // type!beat: numbered pinks are the Caret lime ramp too (see note above the legacy family).
-        public readonly Color4 Pink0 = Color4Extensions.FromHex(@"ddf78f");
-        public readonly Color4 Pink1 = Color4Extensions.FromHex(@"c9f24d");
-        public readonly Color4 Pink2 = Color4Extensions.FromHex(@"b0dd39");
-        public readonly Color4 Pink3 = Color4Extensions.FromHex(@"99c031");
-        public readonly Color4 Pink4 = Color4Extensions.FromHex(@"5c6b2e");
+        // type!beat: numbered pinks are violet too, osu!'s Purple0-4 (see note above the legacy family).
+        public readonly Color4 Pink0 = Color4Extensions.FromHex(@"b299ff");
+        public readonly Color4 Pink1 = Color4Extensions.FromHex(@"8c66ff");
+        public readonly Color4 Pink2 = Color4Extensions.FromHex(@"7047eb");
+        public readonly Color4 Pink3 = Color4Extensions.FromHex(@"5933cc");
+        public readonly Color4 Pink4 = Color4Extensions.FromHex(@"3d2e6b");
 
         public readonly Color4 Purple0 = Color4Extensions.FromHex(@"b299ff");
         public readonly Color4 Purple1 = Color4Extensions.FromHex(@"8c66ff");

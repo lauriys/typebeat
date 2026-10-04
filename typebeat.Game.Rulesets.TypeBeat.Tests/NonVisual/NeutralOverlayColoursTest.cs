@@ -12,9 +12,9 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
 {
     /// <summary>
     /// The default overlay scheme ("Purple": settings, notifications, login, first-run setup, ...):
-    /// lime accents on neutral greys, with a deep olive ink for text on the accent. Every other
-    /// scheme keeps osu!'s tinted greys and white text. Also the olive second accent, which carries
-    /// white text where the lime cannot.
+    /// lime accents on darkened neutral greys, with a deep olive ink for text on the accent. Every
+    /// other scheme keeps osu!'s tinted greys and white text. osu!'s pink slot holds violet, the
+    /// lime's complement, which carries white text where the lime cannot.
     /// </summary>
     [TestFixture]
     public class NeutralOverlayColoursTest
@@ -67,14 +67,46 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.NonVisual
         }
 
         [Test]
-        public void WhiteTextOnTheOliveIsReadable()
+        public void ThePinkSlotIsViolet()
         {
             var colours = new OsuColour();
 
-            Assert.That(contrast(Color4.White, colours.Olive), Is.GreaterThanOrEqualTo(4.5));
-            // The highlight is bold text's 3:1 at least.
-            Assert.That(contrast(Color4.White, colours.OliveLight), Is.GreaterThanOrEqualTo(3));
+            Assert.That(colours.Pink, Is.EqualTo(new Color4(0x8c, 0x66, 0xff, 255)));
+            Assert.That(colours.Pink1, Is.EqualTo(colours.Pink));
+            Assert.That(OverlayColourScheme.Pink.GetHue(), Is.EqualTo(255));
+            Assert.That(new OverlayColourProvider(OverlayColourScheme.Pink).NeutralGreys, Is.False);
         }
+
+        [Test]
+        public void TheBrandLimeIsTheWebsitesAccent()
+            => Assert.That(new OsuColour().BrandLime, Is.EqualTo(new Color4(0xc9, 0xf2, 0x4d, 255)));
+
+        [Test]
+        public void WhiteTextOnTheVioletIsReadable()
+        {
+            var colours = new OsuColour();
+
+            // The back button's fill: WCAG AA for normal text.
+            Assert.That(contrast(Color4.White, colours.Pink2), Is.GreaterThanOrEqualTo(4.5));
+            // Dialog confirms and the like: bold text's 3:1 at least.
+            Assert.That(contrast(Color4.White, colours.Pink), Is.GreaterThanOrEqualTo(3));
+        }
+
+        [Test]
+        public void TheDefaultSchemesSurfacesSitDarker()
+        {
+            var provider = new OverlayColourProvider(OverlayColourScheme.Purple);
+
+            Assert.That(provider.Background5, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.01f, 0.15f * 0.8f)));
+            Assert.That(provider.Dark1, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.02f, 0.35f * 0.8f)));
+            // The lightest grey and the text greys keep their lightness.
+            Assert.That(provider.Background1, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.01f, 0.4f)));
+            Assert.That(provider.Content2, Is.EqualTo((Color4)Colour4.FromHSL(75 / 360f, 0.04f, 0.9f)));
+        }
+
+        [Test]
+        public void TheToolbarSitsDarkerToo()
+            => Assert.That(Overlays.Toolbar.Toolbar.BACKGROUND_COLOUR, Is.EqualTo((Color4)OsuColour.Gray(0.08f)));
 
         [Test]
         public void ChangingSchemeCarriesTheNeutralGreys()

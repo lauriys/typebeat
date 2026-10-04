@@ -62,10 +62,10 @@ namespace typebeat.Game.Screens.Footer
                 }
             };
 
-            // type!beat: was osu!'s pink (#DE31AE / #FF86DD), which the rebrand missed; now the olive
-            // second accent, so "back" pairs with the lime "next" the way osu!'s pink did with its violet.
-            DarkerColour = colours.Olive;
-            LighterColour = colours.OliveLight;
+            // type!beat: was osu!'s pink, hardcoded (#DE31AE / #FF86DD); now the violet that holds
+            // osu!'s pink slot (see OsuColour), so "back" pairs with the lime "next".
+            DarkerColour = colours.Pink2;
+            LighterColour = colours.Pink0;
             TextColour = Color4.White;
         }
     }

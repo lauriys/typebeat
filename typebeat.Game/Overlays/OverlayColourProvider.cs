@@ -46,19 +46,19 @@ namespace typebeat.Game.Overlays
         public Color4 Light2 => getGrey(0.4f, 0.75f);
         public Color4 Light3 => getGrey(0.4f, 0.7f);
         public Color4 Light4 => getGrey(0.4f, 0.5f);
-        public Color4 Dark1 => getGrey(0.2f, 0.35f);
-        public Color4 Dark2 => getGrey(0.2f, 0.3f);
-        public Color4 Dark3 => getGrey(0.2f, 0.25f);
-        public Color4 Dark4 => getGrey(0.2f, 0.2f);
-        public Color4 Dark5 => getGrey(0.2f, 0.15f);
-        public Color4 Dark6 => getGrey(0.2f, 0.1f);
+        public Color4 Dark1 => getSurface(0.2f, 0.35f);
+        public Color4 Dark2 => getSurface(0.2f, 0.3f);
+        public Color4 Dark3 => getSurface(0.2f, 0.25f);
+        public Color4 Dark4 => getSurface(0.2f, 0.2f);
+        public Color4 Dark5 => getSurface(0.2f, 0.15f);
+        public Color4 Dark6 => getSurface(0.2f, 0.1f);
         public Color4 Foreground1 => getGrey(0.1f, 0.6f);
         public Color4 Background1 => getGrey(0.1f, 0.4f);
-        public Color4 Background2 => getGrey(0.1f, 0.3f);
-        public Color4 Background3 => getGrey(0.1f, 0.25f);
-        public Color4 Background4 => getGrey(0.1f, 0.2f);
-        public Color4 Background5 => getGrey(0.1f, 0.15f);
-        public Color4 Background6 => getGrey(0.1f, 0.1f);
+        public Color4 Background2 => getSurface(0.1f, 0.3f);
+        public Color4 Background3 => getSurface(0.1f, 0.25f);
+        public Color4 Background4 => getSurface(0.1f, 0.2f);
+        public Color4 Background5 => getSurface(0.1f, 0.15f);
+        public Color4 Background6 => getSurface(0.1f, 0.1f);
 
         /// <summary>
         /// The colour for text and icons drawn on an accent fill such as <see cref="Colour3"/>. White,
@@ -107,5 +107,15 @@ namespace typebeat.Game.Overlays
 
         // A tenth of the saturation keeps the faintest trace of the hue, so the greys still sit with the accent.
         private Color4 getGrey(float saturation, float lightness) => getColour(NeutralGreys ? saturation / 10 : saturation, lightness);
+
+        // The dark surfaces (panels, cards, sidebars) also sit darker on the neutral scheme, nearer the
+        // website's near-black. Background1 stays put: it is the lightest step, used for borders and
+        // dimmed text, which would lose contrast.
+        private Color4 getSurface(float saturation, float lightness) => getGrey(saturation, NeutralGreys ? lightness * SURFACE_DARKENING : lightness);
+
+        /// <summary>
+        /// How much darker the neutral scheme's dark surfaces sit than osu!'s, as a lightness factor.
+        /// </summary>
+        public const float SURFACE_DARKENING = 0.8f;
     }
 }
