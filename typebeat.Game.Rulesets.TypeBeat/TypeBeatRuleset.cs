@@ -477,8 +477,9 @@ namespace typebeat.Game.Rulesets.TypeBeat
         public override Drawable CreateIcon() => new Icon();
 
         /// <summary>
-        /// Rendered in the toolbar ruleset button and the settings ruleset tabs: a keycap outline,
-        /// white on transparent so callers can tint it. Drawn from Resources/Textures/ruleset-icon.png,
+        /// Rendered in the toolbar ruleset button and the settings ruleset tabs: a keycap outline in a
+        /// ring, white on transparent so callers can tint it. The ring is part of the texture, as it is
+        /// part of osu!'s ruleset glyphs; nothing in the toolbar draws one. Drawn from Resources/Textures/ruleset-icon.png,
         /// which is exported from assets/typebeat-ruleset-icon.svg. Kept at the fixed 20px the old
         /// solid circle had, so every caller lays it out exactly as before.
         /// </summary>
