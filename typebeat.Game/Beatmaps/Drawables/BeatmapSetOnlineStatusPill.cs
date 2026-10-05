@@ -17,7 +17,7 @@ using osuTK.Graphics;
 
 namespace typebeat.Game.Beatmaps.Drawables
 {
-    public partial class BeatmapSetOnlineStatusPill : CircularContainer, IHasTooltip
+    public partial class BeatmapSetOnlineStatusPill : Container, IHasTooltip
     {
         /// <summary>
         /// Whether to show <see cref="BeatmapOnlineStatus.None"/> as "unknown" instead of fading out.
@@ -71,6 +71,8 @@ namespace typebeat.Game.Beatmaps.Drawables
         {
             AutoSizeAxes = Axes.Both;
             Masking = true;
+            // type!beat: squared like the rest of the chrome instead of osu!'s pill.
+            CornerRadius = UICorners.RADIUS;
 
             Alpha = 0;
 

@@ -89,9 +89,11 @@ namespace typebeat.Game.Beatmaps.Drawables
                     break;
             }
 
-            InternalChild = new CircularContainer
+            // type!beat: squared like the rest of the chrome instead of osu!'s pill.
+            InternalChild = new Container
             {
                 Masking = true,
+                CornerRadius = UICorners.RADIUS,
                 AutoSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {
