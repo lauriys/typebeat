@@ -126,7 +126,8 @@ namespace typebeat.Game.Beatmaps.Drawables
             private void load(RulesetStore rulesets)
             {
                 AutoSizeAxes = Axes.Both;
-                Spacing = new Vector2(1, 0);
+                // type!beat: the same 3 px gap the beatmap card leaves between its status chip and this display.
+                Spacing = new Vector2(3, 0);
                 Direction = FillDirection.Horizontal;
 
                 var ruleset = rulesets.GetRuleset(RulesetId);
@@ -178,7 +179,11 @@ namespace typebeat.Game.Beatmaps.Drawables
             }
         }
 
-        private partial class DifficultyDot : Circle
+        /// <summary>
+        /// type!beat: a square-cornered bar rather than osu!'s rounded pill, as tall as the ruleset icon
+        /// and the card's status chip beside it.
+        /// </summary>
+        private partial class DifficultyDot : Box
         {
             private double starDifficulty;
 
@@ -198,7 +203,7 @@ namespace typebeat.Game.Beatmaps.Drawables
             [BackgroundDependencyLoader]
             private void load()
             {
-                Size = new Vector2(5, 10);
+                Size = new Vector2(7, 14);
                 Anchor = Origin = Anchor.Centre;
 
                 updateColour();
