@@ -6,12 +6,16 @@ namespace typebeat.Game.Graphics
     /// <summary>
     /// type!beat: the one corner radius for UI chrome: buttons, fields, dropdowns, form cards, panels,
     /// popovers, tooltips, dialogs and notifications. osu! rounds these anywhere from 5 to 20 px, set
-    /// per component; type!beat squares them off to a single tighter radius, closer to a terminal than
-    /// to osu!'s soft cards. Pills (slider tracks, toggles, nubs), circles and the gameplay HUD keep
-    /// their own shapes.
+    /// per component; type!beat squares them off entirely, like a terminal rather than osu!'s soft
+    /// cards. Pills (slider tracks, toggles, nubs), circles and the gameplay HUD keep their own shapes.
     /// </summary>
+    /// <remarks>
+    /// Layouts inherited from osu! overlap neighbouring pieces by their corner radius to hide the seam
+    /// under a rounded corner; at zero those pieces simply meet edge to edge. Anything that derives an
+    /// inner radius from this one must clamp it at zero.
+    /// </remarks>
     public static class UICorners
     {
-        public const float RADIUS = 4;
+        public const float RADIUS = 0;
     }
 }

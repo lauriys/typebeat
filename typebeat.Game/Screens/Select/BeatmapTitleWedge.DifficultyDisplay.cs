@@ -173,7 +173,7 @@ namespace typebeat.Game.Screens.Select
                                     RelativeSizeAxes = Axes.X,
                                     AutoSizeAxes = Axes.Y,
                                     Masking = true,
-                                    CornerRadius = UICorners.RADIUS - border_weight,
+                                    CornerRadius = Math.Max(0, UICorners.RADIUS - border_weight),
                                     Shear = OsuGame.SHEAR,
                                     Children = new Drawable[]
                                     {
