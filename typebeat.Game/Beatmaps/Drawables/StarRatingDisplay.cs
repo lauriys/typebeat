@@ -76,16 +76,18 @@ namespace typebeat.Game.Beatmaps.Drawables
 
             switch (size)
             {
+                // type!beat: tighter than osu!'s 7/8 px, which left room for the pill's round ends,
+                // but a little looser than the status chip's 4 px so the star doesn't touch the edge.
                 case StarRatingDisplaySize.Small:
-                    margin = new MarginPadding { Horizontal = 7f };
+                    margin = new MarginPadding { Horizontal = 5.5f };
                     break;
 
                 case StarRatingDisplaySize.Range:
-                    margin = new MarginPadding { Horizontal = 8f };
+                    margin = new MarginPadding { Horizontal = 6.5f };
                     break;
 
                 case StarRatingDisplaySize.Regular:
-                    margin = new MarginPadding { Horizontal = 8f, Vertical = 2f };
+                    margin = new MarginPadding { Horizontal = 6.5f, Vertical = 2f };
                     break;
             }
 
