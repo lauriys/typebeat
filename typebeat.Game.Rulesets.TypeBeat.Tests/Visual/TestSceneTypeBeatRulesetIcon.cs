@@ -10,6 +10,9 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Testing;
 using osuTK;
+using typebeat.Game.Beatmaps;
+using typebeat.Game.Beatmaps.Drawables;
+using typebeat.Game.Graphics;
 using typebeat.Game.Tests.Visual;
 
 namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
@@ -46,6 +49,31 @@ namespace typebeat.Game.Rulesets.TypeBeat.Tests.Visual
             AddAssert("texture found", () => spriteOf(first).Texture, () => Is.Not.Null);
             AddAssert("icons share one texture", () => spriteOf(second).Texture, () => Is.SameAs(spriteOf(first).Texture));
             AddAssert("fixed 20px size", () => first.DrawSize, () => Is.EqualTo(new Vector2(20)));
+        }
+
+        /// <summary>
+        /// The results screen, song select and beatmap cards draw the ruleset through <see cref="DifficultyIcon"/>, which for a
+        /// while drew the resources' "t" keycap glyph instead of the ruleset's own icon.
+        /// </summary>
+        [Test]
+        public void TestDifficultyIconDrawsRulesetIcon()
+        {
+            DifficultyIcon icon = null!;
+
+            AddStep("add difficulty icon", () => Child = icon = new DifficultyIcon(new BeatmapInfo
+            {
+                Ruleset = new TypeBeatRuleset().RulesetInfo,
+                StarRating = 5.34,
+            })
+            {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Size = new Vector2(80),
+            });
+
+            AddUntilStep("icon loaded", () => icon.ChildrenOfType<TypeBeatRuleset.Icon>().SingleOrDefault()?.IsLoaded == true);
+            AddAssert("no osu! ruleset glyph", () => icon.ChildrenOfType<SpriteIcon>().Where(s => s.Icon.Equals(OsuIcon.RulesetOsu)), () => Is.Empty);
+            AddAssert("texture found", () => spriteOf(icon.ChildrenOfType<TypeBeatRuleset.Icon>().Single()).Texture, () => Is.Not.Null);
         }
 
         private static Sprite spriteOf(Drawable icon) => icon.ChildrenOfType<Sprite>().Single();

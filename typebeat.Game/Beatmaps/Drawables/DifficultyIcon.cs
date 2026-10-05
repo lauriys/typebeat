@@ -158,19 +158,19 @@ namespace typebeat.Game.Beatmaps.Drawables
         private Drawable getRulesetIcon() => CreateRulesetGlyph(ruleset, rulesets);
 
         /// <summary>
-        /// The glyph a difficulty display draws for <paramref name="ruleset"/>: lazer's osu! ring for the type!beat ruleset.
+        /// The glyph a difficulty display draws for <paramref name="ruleset"/>: the ruleset's own <see cref="Ruleset.CreateIcon"/>,
+        /// as in lazer (this icon, <see cref="DifficultySpectrumDisplay"/>, the card's difficulty list).
         /// </summary>
         /// <remarks>
-        /// Lazer's difficulty displays (this icon, <see cref="DifficultySpectrumDisplay"/>, the card's difficulty list) draw the
-        /// ruleset's <see cref="Ruleset.CreateIcon"/>, which in lazer is a font glyph that scales to whatever size it is given and
-        /// leaves the star colour showing around it. type!beat's ruleset icon is a fixed 20px solid circle (kept for the toolbar),
-        /// which these displays cannot scale: it covered the coloured disc here and dwarfed the spectrum's dots. They draw the
-        /// glyph lazer draws for an osu! map instead, so they look exactly as they do in lazer.
+        /// type!beat's icon is a keycap in a ring drawn to osu!'s ruleset glyph proportions and transparent between the two,
+        /// so the star colour shows through it the way it does through lazer's osu! ring. The displays' icon containers scale
+        /// its fixed 20px size to fit. (These displays drew the resources' <c>RulesetOsu</c> glyph, the "t" keycap, while the
+        /// ruleset's icon was a solid circle that covered the coloured disc.)
         /// </remarks>
         public static Drawable CreateRulesetGlyph(IRulesetInfo ruleset, IRulesetStore rulesets)
         {
-            if (ruleset.OnlineID >= 0 && rulesets.GetRuleset(ruleset.OnlineID) != null)
-                return new SpriteIcon { Icon = OsuIcon.RulesetOsu };
+            if (ruleset.OnlineID >= 0 && rulesets.GetRuleset(ruleset.OnlineID) is IRulesetInfo info)
+                return info.CreateInstance().CreateIcon();
 
             return new SpriteIcon { Icon = FontAwesome.Regular.QuestionCircle };
         }
